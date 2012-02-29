@@ -3,6 +3,10 @@
 Simple plugin for TinyMCE that allows uploading images and inserting.
 It makes no assumptions about how you store the images, but it POSTs to a URL and expects JSON back (see the Setup section).
 
+This plugin borrows heavily from work done by [Peter Shoukry](http://77effects.com/).
+
+The icon used for the button comes from the icon set [Silk by famfamfam](http://www.famfamfam.com/lab/icons/silk/)
+
 ## Requirements
 
   * Rails >= 3.1
@@ -47,4 +51,7 @@ The version of this gem will be mirroring the release of `tinymce-rails` it is t
 ## Licensing
 
 The plugin is released under the MIT license.
+
 TinyMCE is released under the LGPL Version 2.1.
+
+The icon used for the button comes from the icon set Silk from famfamfam, released under the [Creative Commons Attribution 3.0 License](http://creativecommons.org/licenses/by/3.0/)
