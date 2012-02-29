@@ -7,9 +7,9 @@ Gem::Specification.new do |s|
   s.version     = Tinymce::Rails::Imageupload::VERSION
   s.authors     = ["Per Christian B. Viken"]
   s.email       = ["perchr@northblue.org"]
-  s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.homepage    = "http://eastblue.org/oss"
+  s.summary     = %q{TinyMCE plugin for taking image uploads in Rails >= 3.1}
+  s.description = %q{TinyMCE plugin for taking image uploads in Rails >= 3.1}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
