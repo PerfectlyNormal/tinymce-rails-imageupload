@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{#uploadimage_dlg.title}</title>
+    <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+    <script type="text/javascript">
+      tinyMCEPopup.requireLangPack();
+
+      function getFrameByName(name)
+      {
+        for (var i = 0; i < frames.length; i++)
+          if (frames[i].name == name)
+            return frames[i];
+
+        return null;
+      }
+
+      function uploadDone(name)
+      {
+        var frame = getFrameByName(name);
+        if(frame) {
+          ret = frame.document.getElementsByTagName("body")[0].innerHTML;
+
+          if(ret.length) {
+            var json = JSON.parse(ret);
+            tinyMCE.execCommand('mceInsertContent', false, '<br><img src=\'' + json["image"]["url"] + '\' />');
+            tinyMCEPopup.close();
+          }
+        }
+      }
+
+      var UploadImageDialog = {
+        init: function() {
+          var f = document.forms[0];
+        },
+
+        insert: function() {
+          document.forms[0].submit();
+        }
+      };
+
+      tinyMCEPopup.onInit.add(UploadImageDialog.init, UploadImageDialog);
+    </script>
+  </head>
+  <body>
+    <form method="post" enctype='multipart/form-data' accept-charset="UTF-8" target="hidden_upload" action='/tinymce_assets' name="uploadimageForm">
+      <input type="hidden" name="utf8" value="✓">
+      <iframe id="hidden_upload" name="hidden_upload" src='' onload='uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
+
+      <h1>{#uploadimage_dlg.header}</h1>
+      <p>{#uploadimage_dlg.input}: <input type="file" name='file' class="file_upload"></p>
+
+      <div class="mceActionPanel">
+        <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadimageDialog.insert();"/>
+        <input type="button" id="cancel" name="cancel" value="{#uploadimage_dlg.cancel}" onclick="tinyMCEPopup.close();" />
+      </div>
+    </form>
+  </body>
+</html>
