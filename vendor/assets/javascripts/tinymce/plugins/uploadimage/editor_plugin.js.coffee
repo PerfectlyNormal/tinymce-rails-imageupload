@@ -1,21 +1,21 @@
 (->
   tinymce.PluginManager.requireLangPack('uploadimage')
 
-  tinymce.create 'tinymce.plugins.UploadimagePlugin', {
+  tinymce.create 'tinymce.plugins.UploadImagePlugin', {
     init: (ed, url) ->
-      ed.addCommand 'mceUploadimage', ->
+      ed.addCommand 'mceUploadImage', ->
         ed.windowManager.open {
-          file:   url + '/dialog.html',
-          width:  320 + parseInt(ed.getLang('uploadimage.delta_width', 0)),
-          height: 180 + parseInt(ed.getLang('uploadimage.delta_height', 0)),
-          inline: 1
-        }, {
-          plugin_url: url
-        }
+            file:   url + '/dialog.html',
+            width:  320 + parseInt(ed.getLang('uploadimage.delta_width', 0)),
+            height: 180 + parseInt(ed.getLang('uploadimage.delta_height', 0)),
+            inline: 1
+          }, {
+            plugin_url: url
+          }
 
       ed.addButton 'uploadimage', {
         title: 'uploadimage.desc',
-        cmd:   'mceUploadimage',
+        cmd:   'mceUploadImage',
         image: url + '/img/uploadimage.png'
       }
 
@@ -36,8 +36,5 @@
       }
   }
 
-  tinymce.PluginManager.add 'uploadimage', tinymce.plugins.UploadimagePlugin
+  tinymce.PluginManager.add 'uploadimage', tinymce.plugins.UploadImagePlugin
 )()
-
-jQuery ->
-  alert "WOOP"
