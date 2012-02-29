@@ -15,7 +15,8 @@ Gem::Specification.new do |s|
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
 
-  s.add_dependency "railties", ">= 3.1"
-  s.add_development_dependency "bundler", "~> 1.0.0"
-  s.add_development_dependency "rails",   ">= 3.1"
+  s.add_runtime_dependency     "railties",      ">= 3.1"
+  s.add_runtime_dependency     "tinymce-rails", "~> 3.4.8"
+  s.add_development_dependency "bundler",       "~> 1.0.0"
+  s.add_development_dependency "rails",         ">= 3.1"
 end
