@@ -10,7 +10,7 @@ The icon used for the button comes from the icon set [Silk by famfamfam](http://
 ## Requirements
 
   * Rails >= 3.1
-  * TinyMCE using the advanced theme
+  * TinyMCE using the advanced theme and jQuery
 
 ## Setup
 
@@ -43,6 +43,8 @@ This action gets called with a file parameter creatively called `file`, and must
         }
       end
     end
+
+If the JSON response contains a `width` and/or `height` key, those will be used in the inserted HTML (`<img src="..." width="..." height="...">`), but if those are not present, the inserted HTML is just `<img src="...">`.
 
 ## Versioning
 

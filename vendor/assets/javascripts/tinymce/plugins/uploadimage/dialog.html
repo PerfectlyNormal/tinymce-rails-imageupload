@@ -23,7 +23,16 @@
 
           if(ret.length) {
             var json = JSON.parse(ret);
-            tinyMCE.execCommand('mceInsertContent', false, '<br><img src=\'' + json["image"]["url"] + '\' />');
+            var imgstr = "<br><img src='" + json["image"]["url"] + "'";
+
+            if(json["image"]["height"])
+              imgstr += " height='" + json["image"]["height"] + "'";
+            if(json["image"]["width"])
+              imgstr += " width='"  + json["image"]["width"]  + "'";
+
+            imgstr += "/>";
+
+            tinyMCE.execCommand('mceInsertContent', false, imgstr);
             tinyMCEPopup.close();
           }
         }
