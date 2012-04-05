@@ -46,6 +46,28 @@ This action gets called with a file parameter creatively called `file`, and must
 
 If the JSON response contains a `width` and/or `height` key, those will be used in the inserted HTML (`<img src="..." width="..." height="...">`), but if those are not present, the inserted HTML is just `<img src="...">`.
 
+## Internationalization
+
+I18n is taken care of by `tinymce-rails`. This gem includes strings for English and Norwegian. To add your own language, create the files `<code>.js` and `<code>_dlg.js` in `vendor/assets/javascripts/tinymce/plugins/uploadimage/langs` in your application.
+
+The available strings are listed below:
+
+### en.js
+
+    tinyMCE.addI18n('en.uploadimage', {
+      desc: 'Insert an image from your computer'
+    });
+
+### en_dlg.js
+
+    tinyMCE.addI18n('en.uploadimage_dlg', {
+      title: 'Insert image',
+      header: "Insert image",
+      input:  "Choose an image",
+      insert: "Insert",
+      cancel: "Cancel"
+    });
+
 ## Versioning
 
 The version of this gem will be mirroring the release of `tinymce-rails` it is tested against.
