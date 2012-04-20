@@ -1,3 +1,7 @@
+## 3.4.9.1 (unreleased)
+
+* Work with Rails' CSRF protection by copying the token into our form before submitting it
+
 ## 3.4.9 (April 5, 2012)
 
 * Document how to use I18n with the gem
