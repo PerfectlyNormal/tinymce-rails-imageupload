@@ -25,7 +25,7 @@ Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
 
 and the rest should happen automatically.
 
-The plugin POSTs to `/tinymce_assets` by default, which is currently not configurable.
+The plugin POSTs to `/tinymce_assets` by default, which is currently not configurable ([issue #3](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/3)).
 Set it up using something similar in `routes.rb`
 
     post '/tinymce_assets' => 'tinymce_assets#create'
