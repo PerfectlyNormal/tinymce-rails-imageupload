@@ -48,7 +48,9 @@ If the JSON response contains a `width` and/or `height` key, those will be used 
 
 ## Internationalization
 
-I18n is taken care of by `tinymce-rails`. This gem includes strings for English and Norwegian. To add your own language, create the files `<code>.js` and `<code>_dlg.js` in `vendor/assets/javascripts/tinymce/plugins/uploadimage/langs` in your application.
+I18n is taken care of by `tinymce-rails`. This gem includes strings for English and Norwegian. 
+To add your own language, create the files `<code>.js` and `<code>_dlg.js` in `vendor/assets/javascripts/tinymce/plugins/uploadimage/langs` in your application,
+or fork the gem and add your own translations there.
 
 The available strings are listed below:
 
