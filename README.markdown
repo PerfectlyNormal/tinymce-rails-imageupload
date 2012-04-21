@@ -30,7 +30,9 @@ Set it up using something similar in `routes.rb`
 
     post '/tinymce_assets' => 'tinymce_assets#create'
 
-This action gets called with a file parameter creatively called `file`, and must respond with JSON, containing the URL to the image. Example:
+This action gets called with a file parameter creatively called `file`, and must respond with JSON, containing the URL to the image.
+The JSON has to be returned with a content type of "text/html" to work, which is going to be fixed as soon as possible ([issue #7](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/7)).
+Example:
 
     class TinymceAssetsController < ApplicationController
       def create
@@ -40,7 +42,7 @@ This action gets called with a file parameter creatively called `file`, and must
           image: {
             url: view_context.image_url(image)
           }
-        }
+        }, content_type: "text/html"
       end
     end
 
