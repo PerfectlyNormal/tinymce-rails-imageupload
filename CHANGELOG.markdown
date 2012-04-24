@@ -1,4 +1,4 @@
-## 3.4.9.1 (unreleased)
+## 3.4.9.1 (April 24, 2012)
 
 * Work with Rails' CSRF protection by copying the token into our form before submitting it
 
