@@ -44,7 +44,7 @@
         },
 
         insert: function() {
-          document.getElementById("authenticity_token").value = tinyMCE.$("meta[name='csrf-token']")[0].content;
+          document.getElementById("authenticity_token").value = window.opener.$("meta[name='csrf-token']")[0].content;
           document.forms[0].submit();
         }
       };
