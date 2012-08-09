@@ -1,3 +1,8 @@
+## 3.5.6.1 (August 9, 2012)
+
+* Russian translation. Thanks to ffloyd (Roman Kolesnev)
+* `window.opener` is not always available, so fall back to `window.parent` if needed. Thanks to ffloyd (Roman Kolesnev)
+
 ## 3.5.6 (August 2, 2012)
 
 * Relaxed dependency to work with newer tinymce-rails. Thanks to tjoneseng (Tim Jones)
