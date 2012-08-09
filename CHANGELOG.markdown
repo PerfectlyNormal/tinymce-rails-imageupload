@@ -1,3 +1,8 @@
+## 3.5.6 (August 2, 2012)
+
+* Relaxed dependency to work with newer tinymce-rails. Thanks to tjoneseng (Tim Jones)
+* Fix accessing opener window. Thanks to dpc (Dawid Ciężarkiewicz)
+
 ## 3.4.9.1 (April 24, 2012)
 
 * Work with Rails' CSRF protection by copying the token into our form before submitting it
