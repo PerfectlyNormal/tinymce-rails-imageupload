@@ -1,3 +1,8 @@
+## 3.5.6.2 (August 20, 2012)
+
+* Portugese translation. Thanks to Hefesto
+* Fix for asset compilation. Thanks to ffloyd (Roman Kolesnev)
+
 ## 3.5.6.1 (August 9, 2012)
 
 * Russian translation. Thanks to ffloyd (Roman Kolesnev)
