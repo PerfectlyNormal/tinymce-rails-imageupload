@@ -16,7 +16,7 @@ The icon used for the button comes from the icon set [Silk by famfamfam](http://
 
 Add the gem to your Gemfile
 
-    gem 'tinymce-rails-imageupload', '~> 3.5.6.1'
+    gem 'tinymce-rails-imageupload', '~> 3.5.6.2'
 
 Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
 
@@ -50,7 +50,7 @@ If the JSON response contains a `width` and/or `height` key, those will be used 
 
 ## Internationalization
 
-I18n is taken care of by `tinymce-rails`. This gem includes strings for English, Norwegian and Russian. 
+I18n is taken care of by `tinymce-rails`. This gem includes strings for english, norwegian, russian and portugese. 
 To add your own language, create the files `<code>.js` and `<code>_dlg.js` in `vendor/assets/javascripts/tinymce/plugins/uploadimage/langs` in your application,
 or fork the gem and add your own translations there.
 
