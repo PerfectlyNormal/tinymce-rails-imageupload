@@ -1,11 +1,11 @@
 # tinymce-rails-imageupload
 
-Simple plugin for TinyMCE that allows uploading images and inserting.
-It makes no assumptions about how you store the images, but it POSTs to a URL and expects JSON back (see the Setup section).
+  Simple plugin for TinyMCE that allows uploading images and inserting.
+  It makes no assumptions about how you store the images, but it POSTs to a URL and expects JSON back (see the Setup section).
 
-This plugin borrows heavily from work done by [Peter Shoukry](http://77effects.com/).
+  This plugin borrows heavily from work done by [Peter Shoukry](http://77effects.com/).
 
-The icon used for the button comes from the icon set [Silk by famfamfam](http://www.famfamfam.com/lab/icons/silk/)
+  The icon used for the button comes from the icon set [Silk by famfamfam](http://www.famfamfam.com/lab/icons/silk/)
 
 ## Requirements
 
@@ -14,29 +14,37 @@ The icon used for the button comes from the icon set [Silk by famfamfam](http://
 
 ## Setup
 
-Add the gem to your Gemfile
+### Add the gem to your Gemfile
 
-    gem 'tinymce-rails-imageupload', '~> 3.5.6.2'
+  gem 'tinymce-rails-imageupload', '~> 3.5.6.2'
 
-Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
+### Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
 
-    plugins: "uploadimage"
-    # theme_advanced_buttonsX must include "uploadimage" somewhere to have the button appear
+  plugins: "uploadimage"
+  # theme_advanced_buttonsX must include "uploadimage" somewhere to have the button appear
 
-and the rest should happen automatically.
+  and the rest should happen automatically.
 
-The plugin POSTs to `/tinymce_assets` by default, which is currently not configurable ([issue #3](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/3)).
-Set it up using something similar in `routes.rb`
+### Set up upload URL and handler
+
+  The plugin defaults to POSTing to '/tinymce\_assets".  You may modify it by supplying option "uploadimage\_form\_url" in the call to `.tinymce()`
+
+  Routing to your controller must be done manually.  Set it up using something similar in `routes.rb`:
 
     post '/tinymce_assets' => 'tinymce_assets#create'
 
-This action gets called with a file parameter creatively called `file`, and must respond with JSON, containing the URL to the image.
-The JSON has to be returned with a content type of "text/html" to work, which is going to be fixed as soon as possible ([issue #7](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/7)).
-Example:
+  The plugin will relay option "uploadimage\_hint" in the call to `.tinymce()` to the POSTed URL as param `hint`.  You may use this to relay any hints you wish (for example, blog post ID #) to the controller.
+
+  This action gets called with a file parameter creatively called `file`, and must respond with JSON, containing the URL to the image.
+
+  The JSON has to be returned with a content type of "text/html" to work, which is going to be fixed as soon as possible ([issue #7](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/7)).
+
+  Example:
 
     class TinymceAssetsController < ApplicationController
       def create
         # Take upload from params[:file] and store it somehow...
+        # Optionally also accept params[:hint] and consume if needed
 
         render json: {
           image: {
@@ -46,7 +54,7 @@ Example:
       end
     end
 
-If the JSON response contains a `width` and/or `height` key, those will be used in the inserted HTML (`<img src="..." width="..." height="...">`), but if those are not present, the inserted HTML is just `<img src="...">`.
+  If the JSON response contains a `width` and/or `height` key, those will be used in the inserted HTML (`<img src="..." width="..." height="...">`), but if those are not present, the inserted HTML is just `<img src="...">`.
 
 ## Internationalization
 
