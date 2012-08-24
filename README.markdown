@@ -33,6 +33,8 @@
 
     post '/tinymce_assets' => 'tinymce_assets#create'
 
+  The plugin will relay option "uploadimage\_hint" in the call to `.tinymce()` to the POSTed URL as param `hint`.  You may use this to relay any hints you wish (for example, blog post ID #) to the controller.
+
   This action gets called with a file parameter creatively called `file`, and must respond with JSON, containing the URL to the image.
 
   The JSON has to be returned with a content type of "text/html" to work, which is going to be fixed as soon as possible ([issue #7](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/issues/7)).
@@ -42,6 +44,7 @@
     class TinymceAssetsController < ApplicationController
       def create
         # Take upload from params[:file] and store it somehow...
+        # Optionally also accept params[:hint] and consume if needed
 
         render json: {
           image: {
