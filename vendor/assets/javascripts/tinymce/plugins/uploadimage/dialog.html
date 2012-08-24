@@ -39,13 +39,15 @@
       }
 
       var UploadImageDialog = {
+
         init: function() {
-          var f = document.forms[0];
+          this.f = document.forms[0];
+          this.f.action = tinyMCEPopup.getParam("uploadimage_form_url", "/tinymce_assets");
+          document.getElementById("authenticity_token").value = (window.opener || window.parent).$("meta[name='csrf-token']")[0].content;
         },
 
         insert: function() {
-          document.getElementById("authenticity_token").value = (window.opener || window.parent).$("meta[name='csrf-token']")[0].content;
-          document.forms[0].submit();
+          this.f.submit();
         }
       };
 
@@ -53,9 +55,10 @@
     </script>
   </head>
   <body>
-    <form method="post" enctype='multipart/form-data' accept-charset="UTF-8" target="hidden_upload" action='/tinymce_assets' name="uploadimageForm">
+
+    <form method="post" enctype='multipart/form-data' accept-charset="UTF-8" target="hidden_upload" action='#replaceme' name="uploadimageForm">
       <input type="hidden" name="utf8" value="✓">
-      <input type="hidden" name="authenticity_token" id="authenticity_token" value="">
+      <input type="hidden" name="authenticity_token" id="authenticity_token" value="#replaceme">
       <iframe id="hidden_upload" name="hidden_upload" src='' onload='uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
 
       <h1>{#uploadimage_dlg.header}</h1>
