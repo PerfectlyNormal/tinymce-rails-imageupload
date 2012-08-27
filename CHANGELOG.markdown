@@ -1,3 +1,8 @@
+## 3.5.6.3 (August 27, 2012)
+
+* Make the POST URL configurable (#3). Thanks to minaguib (Mina Naguib)
+* Make it possible to send extra parameters to the controller (#10). Thanks to minaguib (Mina Naguib)
+
 ## 3.5.6.2 (August 20, 2012)
 
 * Portugese translation. Thanks to Hefesto

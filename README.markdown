@@ -16,7 +16,7 @@
 
 ### Add the gem to your Gemfile
 
-    gem 'tinymce-rails-imageupload', '~> 3.5.6.2'
+    gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
 
 ### Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
 
