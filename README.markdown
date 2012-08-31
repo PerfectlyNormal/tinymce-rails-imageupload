@@ -62,6 +62,11 @@ I18n is taken care of by `tinymce-rails`. This gem includes strings for english,
 To add your own language, create the files `<code>.js` and `<code>_dlg.js` in `vendor/assets/javascripts/tinymce/plugins/uploadimage/langs` in your application,
 or fork the gem and add your own translations there.
 
+To get your custom language precompiled, you have to add it to the list of files manually.
+Something like this in `config/application.rb`:
+
+    config.assets.precompile += %w(tinymce/plugins/uploadimage/langs/fr.js tinymce/plugins/uploadimage/langs/fr_dlg.js)
+
 The available strings are listed below:
 
 ### en.js
