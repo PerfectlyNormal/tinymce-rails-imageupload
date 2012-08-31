@@ -63,7 +63,8 @@ To add your own language, create the files `<code>.js` and `<code>_dlg.js` in `v
 or fork the gem and add your own translations there.
 
 To get your custom language precompiled, you have to add it to the list of files manually.
-Something like this in `config/application.rb`:
+If you have a fork, just add it to the list in `lib/tinymce-rails-imageupload/rails.rb`, but if you have the translations in the application,
+you can add it like this in `config/application.rb`:
 
     config.assets.precompile += %w(tinymce/plugins/uploadimage/langs/fr.js tinymce/plugins/uploadimage/langs/fr_dlg.js)
 
