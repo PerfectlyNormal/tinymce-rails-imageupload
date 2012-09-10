@@ -15,6 +15,17 @@
         return null;
       }
 
+      function getMetaContents(mn)
+      {
+        var m = (window.opener || window.parent).document.getElementsByTagName('meta');
+
+        for(var i in m)
+          if(m[i].name == mn)
+            return m[i].content;
+
+        return null;
+      }
+
       function uploadDone(name)
       {
         var frame = getFrameByName(name);
@@ -44,7 +55,7 @@
           this.f = document.forms[0];
           this.f.action = tinyMCEPopup.getParam("uploadimage_form_url", "/tinymce_assets");
           document.getElementById("hint").value = tinyMCEPopup.getParam("uploadimage_hint", "");
-          document.getElementById("authenticity_token").value = (window.opener || window.parent).$("meta[name='csrf-token']")[0].content;
+          document.getElementById("authenticity_token").value = getMetaContents('csrf-token');
         },
 
         insert: function() {
