@@ -34,14 +34,21 @@
 
           if(ret.length) {
             var json = JSON.parse(ret);
-            var imgstr = "<br><img src='" + json["image"]["url"] + "'";
-
+            var imgstr = "<span style='";
+            
+            if(json["image"]["alignment"])
+              imgstr += "display:block; float: " + json["image"]["alignment"];
+              
+            imgstr += "' class='uploadimage_item'>";
+            imgstr += "<img src='" + json["image"]["url"] + "'";
+            
             if(json["image"]["height"])
               imgstr += " height='" + json["image"]["height"] + "'";
             if(json["image"]["width"])
               imgstr += " width='"  + json["image"]["width"]  + "'";
-
-            imgstr += "/>";
+            if(json["image"]["alt"])
+              imgstr += " alt='"  + json["image"]["alt"]  + "'";
+            imgstr += "/></span>";
 
             tinyMCE.execCommand('mceInsertContent', false, imgstr);
             tinyMCEPopup.close();
