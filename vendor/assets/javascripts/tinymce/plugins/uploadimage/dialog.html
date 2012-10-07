@@ -34,14 +34,21 @@
 
           if(ret.length) {
             var json = JSON.parse(ret);
-            var imgstr = "<br><img src='" + json["image"]["url"] + "'";
-
+            var imgstr = "<span class='uploadimage_item";
+            
+            if(json["image"]["alignment"])
+              imgstr += " " + json["image"]["alignment"];
+              
+            imgstr += "'>";
+            imgstr += "<img src='" + json["image"]["url"] + "'";
+            
             if(json["image"]["height"])
               imgstr += " height='" + json["image"]["height"] + "'";
             if(json["image"]["width"])
               imgstr += " width='"  + json["image"]["width"]  + "'";
-
-            imgstr += "/>";
+            if(json["image"]["alt"])
+              imgstr += " alt='"  + json["image"]["alt"]  + "'";
+            imgstr += "/></span>";
 
             tinyMCE.execCommand('mceInsertContent', false, imgstr);
             tinyMCEPopup.close();
@@ -56,6 +63,23 @@
           this.f.action = tinyMCEPopup.getParam("uploadimage_form_url", "/tinymce_assets");
           document.getElementById("hint").value = tinyMCEPopup.getParam("uploadimage_hint", "");
           document.getElementById("authenticity_token").value = getMetaContents('csrf-token');
+          
+          var styles = tinyMCEPopup.getParam("styles", "");
+          var elSel = document.getElementById('default_size');
+          for (var style in styles) {
+            if (styles.hasOwnProperty(style)) {
+              var elOptNew = document.createElement('option');
+              elOptNew.text = styles[style];
+              elOptNew.value = style;
+              var elOptOld = elSel.options[elSel.selectedIndex];  
+              try {
+                elSel.add(elOptNew, elOptOld); // standards compliant; doesn't work in IE
+              }
+              catch(ex) {
+                elSel.add(elOptNew, elSel.selectedIndex); // IE only
+              }
+            }
+          }
         },
 
         insert: function() {
@@ -75,8 +99,33 @@
       <iframe id="hidden_upload" name="hidden_upload" src='' onload='uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
 
       <h1>{#uploadimage_dlg.header}</h1>
-      <p>{#uploadimage_dlg.input}: <input type="file" name='file' class="file_upload"></p>
-
+      <table border="0" cellpadding="4" cellspacing="0">
+        <tr>
+          <td>{#uploadimage_dlg.input}:</td>
+          <td><input type="file" name='file' class="file_upload"></td>
+        </tr>
+        <tr>
+          <td>Image Alt Value:</td>
+          <td><input type="text" name="alt"></td>
+        </tr>
+        <tr>
+          <td>Image Size:</td>
+          <td>
+            <select id="default_size" name="default_size">
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Alignment:</td>
+          <td>
+            <select name="alignment">
+              <option value="uploadimage_aleft">Left</option>
+              <option value="uploadimage_aright">Right</option>
+              <option value="uploadimage_acenter">Center</option>
+            </select>
+          </td>
+        </tr>
+      </table>
       <div class="mceActionPanel">
         <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadImageDialog.insert();"/>
         <input type="button" id="cancel" name="cancel" value="{#uploadimage_dlg.cancel}" onclick="tinyMCEPopup.close();" />
