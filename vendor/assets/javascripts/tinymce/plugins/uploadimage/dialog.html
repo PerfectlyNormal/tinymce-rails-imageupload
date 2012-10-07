@@ -34,12 +34,12 @@
 
           if(ret.length) {
             var json = JSON.parse(ret);
-            var imgstr = "<span style='";
+            var imgstr = "<span class='uploadimage_item";
             
             if(json["image"]["alignment"])
-              imgstr += "display:block; float: " + json["image"]["alignment"];
+              imgstr += " " + json["image"]["alignment"];
               
-            imgstr += "' class='uploadimage_item'>";
+            imgstr += "'>";
             imgstr += "<img src='" + json["image"]["url"] + "'";
             
             if(json["image"]["height"])
@@ -99,21 +99,33 @@
       <iframe id="hidden_upload" name="hidden_upload" src='' onload='uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
 
       <h1>{#uploadimage_dlg.header}</h1>
-      <p>{#uploadimage_dlg.input}: <input type="file" name='file' class="file_upload"></p>
-      <p>Alt: <input type="text" name="alt"></p>
-      <p>
-        Image Size:
-        <select id="default_size" name="default_size">
-        </select>
-      </p>
-      <p>
-        Alignment:
-        <select name="alignment">
-          <option value="left">Left</option>
-          <option value="right">Right</option>
-          <option value="center">Center</option>
-        </select>
-      </p>
+      <table border="0" cellpadding="4" cellspacing="0">
+        <tr>
+          <td>{#uploadimage_dlg.input}:</td>
+          <td><input type="file" name='file' class="file_upload"></td>
+        </tr>
+        <tr>
+          <td>Image Alt Value:</td>
+          <td><input type="text" name="alt"></td>
+        </tr>
+        <tr>
+          <td>Image Size:</td>
+          <td>
+            <select id="default_size" name="default_size">
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td>Alignment:</td>
+          <td>
+            <select name="alignment">
+              <option value="uploadimage_aleft">Left</option>
+              <option value="uploadimage_aright">Right</option>
+              <option value="uploadimage_acenter">Center</option>
+            </select>
+          </td>
+        </tr>
+      </table>
       <div class="mceActionPanel">
         <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadImageDialog.insert();"/>
         <input type="button" id="cancel" name="cancel" value="{#uploadimage_dlg.cancel}" onclick="tinyMCEPopup.close();" />
