@@ -10,7 +10,7 @@
 ## Requirements
 
   * Rails >= 3.1
-  * TinyMCE using the advanced theme and jQuery
+  * TinyMCE using the advanced theme
 
 ## Setup
 
