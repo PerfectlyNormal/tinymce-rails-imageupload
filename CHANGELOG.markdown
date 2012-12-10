@@ -1,3 +1,7 @@
+## 3.5.6.4 (December 10, 2012)
+
+* Convert CoffeeScript to JavaScript to avoid depending on CoffeeScript (#19). Thanks to sobrinho (Gabriel Sobrinho)
+
 ## 3.5.6.3 (August 27, 2012)
 
 * Make the POST URL configurable (#3). Thanks to minaguib (Mina Naguib)
