@@ -11,61 +11,75 @@
     <script type="text/javascript">
       tinyMCEPopup.requireLangPack();
 
-      function getFrameByName(name)
-      {
-        for (var i = 0; i < frames.length; i++)
-          if (frames[i].name == name)
-            return frames[i];
-
-        return null;
-      }
-
-      function getMetaContents(mn)
-      {
-        var m = (window.opener || window.parent).document.getElementsByTagName('meta');
-
-        for(var i in m)
-          if(m[i].name == mn)
-            return m[i].content;
-
-        return null;
-      }
-
-      function uploadDone(name)
-      {
-        var frame = getFrameByName(name);
-        if(frame) {
-          ret = frame.document.getElementsByTagName("body")[0].innerHTML;
-
-          if(ret.length) {
-            var json = JSON.parse(ret);
-            var imgstr = "<br><img src='" + json["image"]["url"] + "'";
-
-            if(json["image"]["height"])
-              imgstr += " height='" + json["image"]["height"] + "'";
-            if(json["image"]["width"])
-              imgstr += " width='"  + json["image"]["width"]  + "'";
-
-            imgstr += "/>";
-
-            tinyMCE.execCommand('mceInsertContent', false, imgstr);
-            tinyMCEPopup.close();
-          }
-        }
-      }
-
       var UploadImageDialog = {
 
         init: function() {
           this.f = document.forms[0];
           this.f.action = tinyMCEPopup.getParam("uploadimage_form_url", "/tinymce_assets");
           document.getElementById("hint").value = tinyMCEPopup.getParam("uploadimage_hint", "");
-          document.getElementById("authenticity_token").value = getMetaContents('csrf-token');
+          document.getElementById("authenticity_token").value = UploadImageDialog.getMetaContents('csrf-token');
         },
 
         insert: function() {
           this.f.submit();
-        }
+        },
+
+        uploadDone: function(name) {
+          var frame = UploadImageDialog.getFrameByName(name);
+          if(frame) {
+            ret = frame.document.getElementsByTagName("body")[0].innerHTML;
+
+            if(ret.length) {
+              var json = JSON.parse(ret);
+
+              if(json["error"])
+                UploadImageDialog.handleError(json["error"]);
+              else
+                tinyMCE.execCommand('mceInsertContent', false, UploadImageDialog.buildHTML(json));
+                tinyMCEPopup.close();
+            }
+          }
+        },
+
+        buildHTML: function(json) {
+          var imgstr = "<br><img src='" + json["image"]["url"] + "'";
+
+          if(json["image"]["height"])
+            imgstr += " height='" + json["image"]["height"] + "'";
+          if(json["image"]["width"])
+            imgstr += " width='"  + json["image"]["width"]  + "'";
+
+          imgstr += "/>";
+
+          return imgstr;
+        },
+
+        handleError: function(error) {
+          var label   = document.getElementById("file_upload_label");
+          var message = document.getElementById("error_message");
+
+          label.className += ' invalid';
+          if(error["message"])
+            message.innerHTML = error["message"];
+        },
+
+        getFrameByName: function(name) {
+          for (var i = 0; i < frames.length; i++)
+            if (frames[i].name == name)
+              return frames[i];
+
+          return null;
+        },
+
+        getMetaContents: function(mn) {
+          var m = (window.opener || window.parent).document.getElementsByTagName('meta');
+
+          for(var i in m)
+            if(m[i].name == mn)
+              return m[i].content;
+
+          return null;
+        },
       };
 
       tinyMCEPopup.onInit.add(UploadImageDialog.init, UploadImageDialog);
@@ -78,10 +92,11 @@
       <input type="hidden" name="utf8" value="✓">
       <input type="hidden" name="authenticity_token" id="authenticity_token" value="#replaceme">
       <input type="hidden" name="hint" id="hint" value="#replaceme">
-      <iframe id="hidden_upload" name="hidden_upload" src='' onload='uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
+      <iframe id="hidden_upload" name="hidden_upload" src='' onload='UploadImageDialog.uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
 
-      <label for='file_upload'>{#uploadimage_dlg.input}:</label>
+      <label id='file_upload_label' for='file_upload'>{#uploadimage_dlg.input}:</label>
       <input type='file' name='file' id='file_upload'>
+      <p id="error_message"></p>
 
       <div class="mceActionPanel">
         <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadImageDialog.insert();"/>
