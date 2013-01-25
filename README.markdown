@@ -56,6 +56,15 @@
 
   If the JSON response contains a `width` and/or `height` key, those will be used in the inserted HTML (`<img src="..." width="..." height="...">`), but if those are not present, the inserted HTML is just `<img src="...">`.
 
+## Error handling
+
+To notify the uploader that an error occurred, return JSON containing a `error` key with a `message`.
+The message gets show in a paragraph with the ID `error_message`, and the input label gets the class `invalid`.
+
+Example response:
+
+    "{"error": {"message": "Invalid file type. Only .jpg, .png and .gif allowed"}}"
+
 ## Internationalization
 
 I18n is taken care of by `tinymce-rails`. This gem includes strings for english, norwegian, russian and portugese.
@@ -82,6 +91,9 @@ The available strings are listed below:
       title: 'Insert image',
       header: "Insert image",
       input:  "Choose an image",
+      blank_input: "Must choose a file",
+      bad_response: "Got a bad response from the server",
+      blank_response: "Didn't get a response from the server",
       insert: "Insert",
       cancel: "Cancel"
     });

@@ -1,3 +1,8 @@
+## 3.5.6.5 (Unreleased)
+
+* Handle errors from the server, both in the JSON, and from the server (HTTP 5xx and so on)
+* Don't submit the form without a file selected (fixes #1)
+
 ## 3.5.6.4 (December 10, 2012)
 
 * Convert CoffeeScript to JavaScript to avoid depending on CoffeeScript (#19). Thanks to sobrinho (Gabriel Sobrinho)
