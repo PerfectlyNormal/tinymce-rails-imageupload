@@ -19,6 +19,12 @@
           this.f.action = tinyMCEPopup.getParam("uploadimage_form_url", "/tinymce_assets");
           document.getElementById("hint").value = tinyMCEPopup.getParam("uploadimage_hint", "");
           document.getElementById("authenticity_token").value = UploadImageDialog.getMetaContents('csrf-token');
+
+          this.iframe = document.getElementById("hidden_upload");
+          if(this.iframe.attachEvent)
+            this.iframe.attachEvent('onload', UploadImageDialog.uploadDone);
+          else
+            this.iframe.addEventListener('load', UploadImageDialog.uploadDone, false);
         },
 
         insert: function() {
@@ -98,7 +104,7 @@
       <input type="hidden" name="utf8" value="✓">
       <input type="hidden" name="authenticity_token" id="authenticity_token" value="#replaceme">
       <input type="hidden" name="hint" id="hint" value="#replaceme">
-      <iframe id="hidden_upload" name="hidden_upload" src='' onload='UploadImageDialog.uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
+      <iframe id="hidden_upload" name="hidden_upload" src="" style='width:0;height:0;border:0px solid #fff'></iframe>
 
       <label id='file_upload_label' for='file_upload'>{#uploadimage_dlg.input}:</label>
       <input type='file' name='file' id='file_upload' data-blank-input="{#uploadimage_dlg.blank_input}">
