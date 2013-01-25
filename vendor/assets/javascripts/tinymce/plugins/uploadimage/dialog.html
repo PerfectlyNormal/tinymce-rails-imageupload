@@ -7,6 +7,8 @@
       form { margin-top: 0.5em; }
       label { margin-bottom: 0.5em; }
       p#error_message { color: #E00; }
+      #upload_spinner { padding-top: 4px; padding-left: 3px; }
+      #upload_spinner.inactive { display: none; }
     </style>
     <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
     <script type="text/javascript">
@@ -30,13 +32,16 @@
         insert: function() {
           var input = document.getElementById("file_upload");
 
-          if(input.value != "")
+          if(input.value != "") {
+            document.getElementById("upload_spinner").className = '';
             this.f.submit();
-          else
+          } else
             this.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_input", "Must choose a file"));
         },
 
         uploadDone: function() {
+          document.getElementById("upload_spinner").className = 'inactive';
+
           if(this.document || this.contentDocument) {
             var doc = this.document ? this.document : this.contentDocument;
             UploadImageDialog.handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
@@ -120,6 +125,7 @@
 
       <div class="mceActionPanel">
         <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadImageDialog.insert();"/>
+        <img src="img/spinner.gif" alt="#{uploadimage_dlg.uploading}" id="upload_spinner" height="16" width="16" class="inactive">
         <input type="button" id="cancel" name="cancel" value="{#uploadimage_dlg.cancel}" onclick="tinyMCEPopup.close();" />
       </div>
     </form>
