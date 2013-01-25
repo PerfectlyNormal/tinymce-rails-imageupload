@@ -5,7 +5,7 @@
 
   This plugin borrows heavily from work done by [Peter Shoukry](http://77effects.com/).
 
-  The icon used for the button comes from the icon set [Silk by famfamfam](http://www.famfamfam.com/lab/icons/silk/)
+  The icon used for the button comes from the icon set [Silk by famfamfam](http://www.famfamfam.com/lab/icons/silk/) and the spinner image from [ajaxload.info](http://ajaxload.info/).
 
 ## Requirements
 
@@ -91,6 +91,7 @@ The available strings are listed below:
       title: 'Insert image',
       header: "Insert image",
       input:  "Choose an image",
+      uploading: "Uploading…",
       blank_input: "Must choose a file",
       bad_response: "Got a bad response from the server",
       blank_response: "Didn't get a response from the server",

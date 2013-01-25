@@ -2,6 +2,7 @@
 
 * Handle errors from the server, both in the JSON, and from the server (HTTP 5xx and so on)
 * Don't submit the form without a file selected (fixes #1)
+* Display a spinner when uploading (fixes #2)
 
 ## 3.5.6.4 (December 10, 2012)
 
