@@ -2,6 +2,9 @@
 <html>
   <head>
     <title>{#uploadimage_dlg.title}</title>
+    <style type="text/css">
+      label { display: block; margin-bottom: 0.5em; }
+    </style>
     <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
     <script type="text/javascript">
       tinyMCEPopup.requireLangPack();
@@ -67,6 +70,7 @@
     </script>
   </head>
   <body>
+    <h1>{#uploadimage_dlg.header}</h1>
 
     <form method="post" enctype='multipart/form-data' accept-charset="UTF-8" target="hidden_upload" action='#replaceme' name="uploadimageForm">
       <input type="hidden" name="utf8" value="✓">
@@ -74,8 +78,8 @@
       <input type="hidden" name="hint" id="hint" value="#replaceme">
       <iframe id="hidden_upload" name="hidden_upload" src='' onload='uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
 
-      <h1>{#uploadimage_dlg.header}</h1>
-      <p>{#uploadimage_dlg.input}: <input type="file" name='file' class="file_upload"></p>
+      <label for='file_upload'>{#uploadimage_dlg.input}:</label>
+      <input type='file' name='file' id='file_upload'>
 
       <div class="mceActionPanel">
         <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadImageDialog.insert();"/>
