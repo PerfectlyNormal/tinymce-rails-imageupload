@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>{#uploadimage_dlg.title}</title>
     <style type="text/css">
       form { margin-top: 0.5em; }
@@ -21,7 +22,12 @@
         },
 
         insert: function() {
-          this.f.submit();
+          var input = document.getElementById("file_upload");
+
+          if(input.value != "")
+            this.f.submit();
+          else
+            UploadImageDialog.handleError({message: input.getAttribute("data-blank-input")});
         },
 
         uploadDone: function(name) {
@@ -95,7 +101,7 @@
       <iframe id="hidden_upload" name="hidden_upload" src='' onload='UploadImageDialog.uploadDone("hidden_upload")' style='width:0;height:0;border:0px solid #fff'></iframe>
 
       <label id='file_upload_label' for='file_upload'>{#uploadimage_dlg.input}:</label>
-      <input type='file' name='file' id='file_upload'>
+      <input type='file' name='file' id='file_upload' data-blank-input="{#uploadimage_dlg.blank_input}">
       <p id="error_message"></p>
 
       <div class="mceActionPanel">
