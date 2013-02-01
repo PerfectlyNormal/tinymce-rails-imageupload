@@ -1,5 +1,6 @@
-## 3.5.6.5 (Unreleased)
+## 3.5.8.0 (February 1, 2013)
 
+* Tested with tinymce-rails 3.5.8
 * Handle errors from the server, both in the JSON, and from the server (HTTP 5xx and so on)
 * Don't submit the form without a file selected (fixes #1)
 * Display a spinner when uploading (fixes #2)

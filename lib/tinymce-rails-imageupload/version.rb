@@ -1,7 +1,7 @@
 module Tinymce
   module Rails
     module Imageupload
-      VERSION = "3.5.6.4"
+      VERSION = "3.5.8.0"
     end
   end
 end
