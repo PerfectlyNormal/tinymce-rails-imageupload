@@ -1,3 +1,9 @@
+## 3.5.8.1 (Feburary 8, 2013)
+
+* Added pt-BR translations. Thanks to klebervirgilio (Kleber Correia)
+* Start signing the gem with rubygems-openpgp (https://github.com/grant-olson/rubygems-openpgp)
+  * My signing key is available at https://eastblue.org/blag/contact/
+
 ## 3.5.8.0 (February 1, 2013)
 
 * Tested with tinymce-rails 3.5.8

@@ -101,7 +101,17 @@ The available strings are listed below:
 
 ## Versioning
 
-The version of this gem will be mirroring the release of `tinymce-rails` it is tested against.
+The major, minor and patch version of this gem will be mirroring the release of `tinymce-rails` it is tested against.
+
+## Signing
+
+This gem is signed using [rubygems-openpgp](https://github.com/grant-olson/rubygems-openpgp) using [my personal key](https://eastblue.org/blag/contact/), and the fingerprint is also included below.
+
+    pub   4096R/CCFBB9EF 2013-02-01 [expires: 2017-02-01]
+          Key fingerprint = 6077 34FC 32B6 6041 BF06  43F2 205D 9784 CCFB B9EF
+    uid                  Per Christian Bechström Viken <perchr@northblue.org>
+    uid                  [jpeg image of size 6240]
+    sub   4096R/13C6EED7 2013-02-01 [expires: 2017-02-01]
 
 ## Licensing
 
