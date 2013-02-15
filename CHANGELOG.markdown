@@ -1,54 +1,54 @@
-## 3.5.8.1 (Feburary 8, 2013)
+# 3.5.8.1 / 2013-02-08
 
 * Added pt-BR translations. Thanks to klebervirgilio (Kleber Correia)
 * Start signing the gem with rubygems-openpgp (https://github.com/grant-olson/rubygems-openpgp)
   * My signing key is available at https://eastblue.org/blag/contact/
 
-## 3.5.8.0 (February 1, 2013)
+# 3.5.8.0 / 2013-02-01
 
 * Tested with tinymce-rails 3.5.8
 * Handle errors from the server, both in the JSON, and from the server (HTTP 5xx and so on)
 * Don't submit the form without a file selected (fixes #1)
 * Display a spinner when uploading (fixes #2)
 
-## 3.5.6.4 (December 10, 2012)
+# 3.5.6.4 / 2012-12-10
 
 * Convert CoffeeScript to JavaScript to avoid depending on CoffeeScript (#19). Thanks to sobrinho (Gabriel Sobrinho)
 
-## 3.5.6.3 (August 27, 2012)
+# 3.5.6.3 / 2012-08-27
 
 * Make the POST URL configurable (#3). Thanks to minaguib (Mina Naguib)
 * Make it possible to send extra parameters to the controller (#10). Thanks to minaguib (Mina Naguib)
 
-## 3.5.6.2 (August 20, 2012)
+# 3.5.6.2 / 2012-08-20
 
 * Portugese translation. Thanks to Hefesto
 * Fix for asset compilation. Thanks to ffloyd (Roman Kolesnev)
 
-## 3.5.6.1 (August 9, 2012)
+# 3.5.6.1 / 2012-08-09
 
 * Russian translation. Thanks to ffloyd (Roman Kolesnev)
 * `window.opener` is not always available, so fall back to `window.parent` if needed. Thanks to ffloyd (Roman Kolesnev)
 
-## 3.5.6 (August 2, 2012)
+# 3.5.6 / 2012-08-02
 
 * Relaxed dependency to work with newer tinymce-rails. Thanks to tjoneseng (Tim Jones)
 * Fix accessing opener window. Thanks to dpc (Dawid Ciężarkiewicz)
 
-## 3.4.9.1 (April 24, 2012)
+# 3.4.9.1 / 2012-04-24
 
 * Work with Rails' CSRF protection by copying the token into our form before submitting it
 
-## 3.4.9 (April 5, 2012)
+# 3.4.9 / 2012-04-05
 
 * Document how to use I18n with the gem
 * Explicitly require tinymce-rails so tinymce-rails-imageupload can be alone in the gemfile
 * Update dependency to tinymce-rails 3.4.9
 
-## 3.4.8.1 (March 7, 2012)
+# 3.4.8.1 / 2012-03-07
 
 * Added support for setting height and width for the inserted image
 
-## 3.4.8 (February 29, 2012)
+# 3.4.8 / 2012-02-29
 
 * Initial release
