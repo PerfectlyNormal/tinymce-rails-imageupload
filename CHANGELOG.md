@@ -1,3 +1,7 @@
+# 3.5.8.2 / 2013-03-11
+
+* Added fr-FR translations. Thanks to pompombidou (Harold Simpson)
+
 # 3.5.8.1 / 2013-02-08
 
 * Added pt-BR translations. Thanks to klebervirgilio (Kleber Correia)
