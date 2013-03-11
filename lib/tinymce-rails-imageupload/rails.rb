@@ -6,6 +6,8 @@ module Tinymce
           app.config.assets.precompile << "tinymce/plugins/uploadimage/editor_plugin.js"
           app.config.assets.precompile << "tinymce/plugins/uploadimage/langs/en.js"
           app.config.assets.precompile << "tinymce/plugins/uploadimage/langs/en_dlg.js"
+          app.config.assets.precompile << "tinymce/plugins/uploadimage/langs/fr.js"
+          app.config.assets.precompile << "tinymce/plugins/uploadimage/langs/fr_dlg.js"
           app.config.assets.precompile << "tinymce/plugins/uploadimage/langs/nb.js"
           app.config.assets.precompile << "tinymce/plugins/uploadimage/langs/nb_dlg.js"
           app.config.assets.precompile << "tinymce/plugins/uploadimage/langs/pt.js"
