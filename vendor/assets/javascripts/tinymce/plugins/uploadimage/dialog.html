@@ -65,7 +65,11 @@
         },
 
         buildHTML: function(json) {
-          var imgstr = "<br><img src='" + json["image"]["url"] + "'";
+          var default_class = tinyMCEPopup.getParam("uploadimage_default_img_class", "");
+          var imgstr = "<img src='" + json["image"]["url"] + "'";
+
+          if(default_class != "")
+            imgstr += " class='" + default_class + "'";
 
           if(json["image"]["height"])
             imgstr += " height='" + json["image"]["height"] + "'";
