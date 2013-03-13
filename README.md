@@ -56,6 +56,12 @@
 
   If the JSON response contains a `width` and/or `height` key, those will be used in the inserted HTML (`<img src="..." width="..." height="...">`), but if those are not present, the inserted HTML is just `<img src="...">`.
 
+### Default class for img tag
+
+  By default the plugin doesn't assign any class to the img tag. You can set the class(es) by supplying the `uploadimage_default_img_class` option in the call to `.tinymce()`.
+
+  `class="..."` will only be added to the img tag if a default is specified. Otherwise the inserted HTML is just `<img src="...">`.
+
 ## Error handling
 
 To notify the uploader that an error occurred, return JSON containing a `error` key with a `message`.
