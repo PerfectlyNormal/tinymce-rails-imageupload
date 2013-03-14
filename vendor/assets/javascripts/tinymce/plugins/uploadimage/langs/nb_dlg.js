@@ -7,5 +7,6 @@ tinyMCE.addI18n('nb.uploadimage_dlg', {
   bad_response: "Fikk et ugyldig svar fra serveren",
   blank_response: "Fikk ikke svar fra serveren",
   insert: "Sett inn",
-  cancel: "Avbryt"
+  cancel: "Avbryt",
+  alt_text: ""
 });

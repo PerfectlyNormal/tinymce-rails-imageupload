@@ -7,5 +7,6 @@ tinyMCE.addI18n('pt_BR.uploadimage_dlg', {
   bad_response: "Resposta inesperada do servidor",
   blank_response: "Servidor não está respondendo",
   insert: "Inserir",
-  cancel: "Cancelar"
+  cancel: "Cancelar",
+  alt_text: ""
 });

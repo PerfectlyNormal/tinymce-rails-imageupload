@@ -66,6 +66,8 @@
 
         buildHTML: function(json) {
           var default_class = tinyMCEPopup.getParam("uploadimage_default_img_class", "");
+          var alt_text = document.getElementById("alt_text");
+
           var imgstr = "<img src='" + json["image"]["url"] + "'";
 
           if(default_class != "")
@@ -76,7 +78,7 @@
           if(json["image"]["width"])
             imgstr += " width='"  + json["image"]["width"]  + "'";
 
-          imgstr += "/>";
+          imgstr += " alt='" + alt_text + "'/>";
 
           return imgstr;
         },
@@ -126,6 +128,8 @@
       <label id='file_upload_label' for='file_upload'>{#uploadimage_dlg.input}:</label>
       <input type='file' name='file' id='file_upload'>
       <p id="error_message"></p>
+      <label id='alt_text_label' for='alt_text'>{#uploadimage_dlg.alt_text}:</label>
+      <input type="text" name="alt" id="alt_text">
 
       <div class="mceActionPanel">
         <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadImageDialog.insert();"/>
