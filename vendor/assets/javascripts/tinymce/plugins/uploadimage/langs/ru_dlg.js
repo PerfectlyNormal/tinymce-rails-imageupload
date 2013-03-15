@@ -8,5 +8,5 @@ tinyMCE.addI18n('ru.uploadimage_dlg', {
   blank_response: "Не получен ответ с сервера",
   insert: "Вставить",
   cancel: "Отмена",
-  alt_text: ""
+  alt_text: "Информация об изображении"
 });
