@@ -8,5 +8,5 @@ tinyMCE.addI18n('fr.uploadimage_dlg', {
   blank_response: "Le serveur n'a pas renvoyé de réponse",
   insert: "Insérer",
   cancel: "Annuler",
-  alt_text: "Image description"
+  alt_text: "Description de l'image"
 });
