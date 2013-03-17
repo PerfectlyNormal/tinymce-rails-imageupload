@@ -7,5 +7,6 @@ tinyMCE.addI18n('ru.uploadimage_dlg', {
   bad_response: "Получен некорректный ответ с сервера",
   blank_response: "Не получен ответ с сервера",
   insert: "Вставить",
-  cancel: "Отмена"
+  cancel: "Отмена",
+  alt_text: "Информация об изображении"
 });
