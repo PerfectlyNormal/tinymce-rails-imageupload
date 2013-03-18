@@ -1,6 +1,7 @@
 # 3.5.8.3 / unreleased
 
 * Add option for assigning class to img tag. Thanks to nathanshox (Nathan Shaughnessy)
+* Add alt attribute to img tag and input for user to set it. Thanks to nathanshox (Nathan Shaughnessy)
 
 # 3.5.8.2 / 2013-03-11
 
