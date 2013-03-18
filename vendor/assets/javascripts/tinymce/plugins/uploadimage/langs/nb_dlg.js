@@ -8,5 +8,5 @@ tinyMCE.addI18n('nb.uploadimage_dlg', {
   blank_response: "Fikk ikke svar fra serveren",
   insert: "Sett inn",
   cancel: "Avbryt",
-  alt_text: "Image description"
+  alt_text: "Alternativ tekst for bilde"
 });
