@@ -5,7 +5,7 @@
       ed.addCommand('mceUploadImage', function() {
         return ed.windowManager.open({
           file: url + '/dialog.html',
-          width: 320 + parseInt(ed.getLang('uploadimage.delta_width', 0)),
+          width: 350 + parseInt(ed.getLang('uploadimage.delta_width', 0)),
           height: 180 + parseInt(ed.getLang('uploadimage.delta_height', 0)),
           inline: 1
         }, {
