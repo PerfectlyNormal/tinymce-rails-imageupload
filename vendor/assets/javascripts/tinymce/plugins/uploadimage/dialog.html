@@ -23,13 +23,14 @@
           document.getElementById("authenticity_token").value = this.getMetaContents('csrf-token');
 
           this.iframe = document.getElementById("hidden_upload");
-          if(this.iframe.attachEvent)
-            this.iframe.attachEvent('onload', UploadImageDialog.uploadDone);
-          else
-            this.iframe.addEventListener('load', UploadImageDialog.uploadDone, false);
         },
 
         insert: function() {
+          if(this.iframe.attachEvent) {
+            this.iframe.attachEvent('onload', UploadImageDialog.uploadDone);
+          } else {
+            this.iframe.addEventListener('load', UploadImageDialog.uploadDone, false);
+          }
           var input = document.getElementById("file_upload");
 
           if(input.value != "") {
