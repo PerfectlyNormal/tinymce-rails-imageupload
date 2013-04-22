@@ -48,7 +48,7 @@
           document.getElementById("upload_spinner").className = 'inactive';
           var iframe = document.getElementById("hidden_upload");
           if(iframe.document || iframe.contentDocument) {
-            var doc = iframe.contentDocument ? iframe.contentDocument : iframe.document;
+            var doc = iframe.contentDocument || iframe.contentWindow.document;
             UploadImageDialog.handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
           } else {
             UploadImageDialog.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_response", "Didn't get a response from the server"));
