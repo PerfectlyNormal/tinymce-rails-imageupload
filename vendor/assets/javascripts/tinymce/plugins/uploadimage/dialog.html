@@ -26,9 +26,12 @@
         },
 
         insert: function() {
+          // Detach events first, then attach to avoid double event triggering
           if(this.iframe.attachEvent) {
+            this.iframe.detachEvent('onload', UploadImageDialog.uploadDone);
             this.iframe.attachEvent('onload', UploadImageDialog.uploadDone);
           } else {
+            this.iframe.removeEventListener('load', UploadImageDialog.uploadDone);
             this.iframe.addEventListener('load', UploadImageDialog.uploadDone, false);
           }
           var input = document.getElementById("file_upload");
