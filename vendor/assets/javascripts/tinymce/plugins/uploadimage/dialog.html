@@ -39,8 +39,9 @@
           if(input.value != "") {
             document.getElementById("upload_spinner").className = '';
             this.f.submit();
-          } else
+          } else {
             this.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_input", "Must choose a file"));
+          }
         },
 
         uploadDone: function() {
@@ -49,8 +50,9 @@
           if(iframe.document || iframe.contentDocument) {
             var doc = iframe.document ? iframe.document : iframe.contentDocument;
             UploadImageDialog.handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
-          } else
+          } else {
             UploadImageDialog.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_response", "Didn't get a response from the server"));
+          }
         },
 
         handleResponse: function(ret) {
