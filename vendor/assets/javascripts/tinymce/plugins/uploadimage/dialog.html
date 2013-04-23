@@ -23,30 +23,36 @@
           document.getElementById("authenticity_token").value = this.getMetaContents('csrf-token');
 
           this.iframe = document.getElementById("hidden_upload");
-          if(this.iframe.attachEvent)
-            this.iframe.attachEvent('onload', UploadImageDialog.uploadDone);
-          else
-            this.iframe.addEventListener('load', UploadImageDialog.uploadDone, false);
         },
 
         insert: function() {
+          // Detach events first, then attach to avoid double event triggering
+          if(this.iframe.attachEvent) {
+            this.iframe.detachEvent('onload', UploadImageDialog.uploadDone);
+            this.iframe.attachEvent('onload', UploadImageDialog.uploadDone);
+          } else {
+            this.iframe.removeEventListener('load', UploadImageDialog.uploadDone);
+            this.iframe.addEventListener('load', UploadImageDialog.uploadDone, false);
+          }
           var input = document.getElementById("file_upload");
 
           if(input.value != "") {
             document.getElementById("upload_spinner").className = '';
             this.f.submit();
-          } else
+          } else {
             this.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_input", "Must choose a file"));
+          }
         },
 
         uploadDone: function() {
           document.getElementById("upload_spinner").className = 'inactive';
-
-          if(this.document || this.contentDocument) {
-            var doc = this.document ? this.document : this.contentDocument;
+          var iframe = document.getElementById("hidden_upload");
+          if(iframe.document || iframe.contentDocument) {
+            var doc = iframe.contentDocument || iframe.contentWindow.document;
             UploadImageDialog.handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
-          } else
+          } else {
             UploadImageDialog.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_response", "Didn't get a response from the server"));
+          }
         },
 
         handleResponse: function(ret) {
@@ -123,7 +129,7 @@
       <input type="hidden" name="utf8" value="✓">
       <input type="hidden" name="authenticity_token" id="authenticity_token" value="#replaceme">
       <input type="hidden" name="hint" id="hint" value="#replaceme">
-      <iframe id="hidden_upload" name="hidden_upload" src="" style='width:0;height:0;border:0px solid #fff'></iframe>
+      <iframe id="hidden_upload" name="hidden_upload" src="javascript:void(0)" style='width:0;height:0;border:0px solid #fff'></iframe>
 
       <label id='file_upload_label' for='file_upload'>{#uploadimage_dlg.input}:</label>
       <input type='file' name='file' id='file_upload'>
