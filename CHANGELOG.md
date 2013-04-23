@@ -1,3 +1,9 @@
+# 3.5.8.4 / 2013-04-23
+
+* Make the plugin work in IE8 and IE9 again. Thanks to pomartel (Pierre Olivier Martel)
+* Add German translations. Thanks to pomartel (Pierre Olivier Martel)
+* Add Spanish translations. Thanks to pomartel (Pierre Olivier Martel)
+
 # 3.5.8.3 / 2013-03-18
 
 * Add option for assigning class to img tag. Thanks to nathanshox (Nathan Shaughnessy)
