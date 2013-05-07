@@ -1,3 +1,9 @@
+# 3.5.8.5 / 2013-05-07
+
+* Depend on tinymce-rails ~> 3.5.8.1 for the asset tasks. Thanks to joshcrews (Josh Crews)
+  This should solve the issue with asset precompilation (#15).
+* Add Simplified Chinese (zh-cn) translations. Thanks to inntran (Yinchuan Song)
+
 # 3.5.8.4 / 2013-04-23
 
 * Make the plugin work in IE8 and IE9 again. Thanks to pomartel (Pierre Olivier Martel)
