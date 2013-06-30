@@ -10,13 +10,15 @@
 ## Requirements
 
   * Rails >= 3.1
-  * TinyMCE using the advanced theme
+  * TinyMCE3 using the advanced theme
+
+For TinyMCE4 support, use the master branch.
 
 ## Setup
 
 ### Add the gem to your Gemfile
 
-    gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
+    gem 'tinymce-rails-imageupload', '~> 3.5.8'
 
 ### Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
 
