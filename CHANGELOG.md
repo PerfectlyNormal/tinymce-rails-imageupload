@@ -1,3 +1,8 @@
+# 4.0.0 / unreleased
+
+* Rewrite the plugin to work with TinyMCE 4. TinyMCE 3.x is supported in the
+  tinymce3-branch.
+
 # 3.5.8.5 / 2013-05-07
 
 * Depend on tinymce-rails ~> 3.5.8.1 for the asset tasks. Thanks to joshcrews (Josh Crews)
