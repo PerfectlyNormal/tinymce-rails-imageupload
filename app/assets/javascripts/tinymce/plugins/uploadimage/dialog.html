@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>{#uploadimage_dlg.title}</title>
+    <title>Insert image</title>
     <style type="text/css">
       form { margin-top: 0.5em; }
       label { margin-bottom: 0.5em; }
@@ -12,17 +12,47 @@
     </style>
     <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
     <script type="text/javascript">
-      tinyMCEPopup.requireLangPack();
 
       var UploadImageDialog = {
+        editor: undefined,
 
         init: function() {
+          var editor = this.editor = top.tinymce.activeEditor;
           this.f = document.forms[0];
           this.f.action = tinyMCEPopup.getParam("uploadimage_form_url", "/tinymce_assets");
           document.getElementById("hint").value = tinyMCEPopup.getParam("uploadimage_hint", "");
           document.getElementById("authenticity_token").value = this.getMetaContents('csrf-token');
 
           this.iframe = document.getElementById("hidden_upload");
+          this.translatePage();
+        },
+
+        // Mostly copied straight from tinyMCE3.
+        // Probably a better way to make this work.
+        translatePage: function() {
+          var expr   = /\{#([^\}]+)\}/g,
+              title  = document.title,
+              editor = top.tinymce.activeEditor,
+              i18n   = top.tinymce.i18n,
+              html   = document.body.innerHTML,
+              newValue;
+
+          // Replace a=x with a="x" in IE
+          if(top.tinymce.isIE)
+            html = html.replace(/ (value|title|alt)=([^"][^\s>]+)/gi, ' $1="$2"')
+
+          document.dir = editor.getParam('directionality','');
+
+          newValue = html.replace(expr, function(full, key) {
+            console.log("Translating '" + key + "'");
+            return i18n.translate(key);
+          });
+
+          if(newValue != html)
+            document.body.innerHTML = newValue;
+
+          if ((newValue = i18n.translate(title)) && newValue != title)
+            document.title = newValue;
         },
 
         insert: function() {
@@ -40,7 +70,7 @@
             document.getElementById("upload_spinner").className = '';
             this.f.submit();
           } else {
-            this.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_input", "Must choose a file"));
+            this.handleError('You must choose a file');
           }
         },
 
@@ -51,7 +81,7 @@
             var doc = iframe.contentDocument || iframe.contentWindow.document;
             UploadImageDialog.handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
           } else {
-            UploadImageDialog.handleError(tinyMCEPopup.getLang("uploadimage_dlg.blank_response", "Didn't get a response from the server"));
+            UploadImageDialog.handleError("Didn't get a response from the server");
           }
         },
 
@@ -66,7 +96,7 @@
               tinyMCEPopup.close();
             }
           } catch(e) {
-            UploadImageDialog.handleError(tinyMCEPopup.getLang("uploadimage_dlg.bad_response", "Got a bad response from the server"));
+            UploadImageDialog.handleError('Got a bad response from the server');
           }
         },
 
@@ -95,7 +125,7 @@
           var message = document.getElementById("error_message");
 
           if(message)
-            message.innerHTML = error;
+            message.innerHTML = top.tinymce.i18n.translate(error);
 
           // Add the 'invalid' class, avoiding duplicates
           if(label) {
@@ -123,7 +153,7 @@
     </script>
   </head>
   <body>
-    <h1>{#uploadimage_dlg.header}</h1>
+    <h1>{#Insert image}</h1>
 
     <form method="post" enctype='multipart/form-data' accept-charset="UTF-8" target="hidden_upload" action='#replaceme' name="uploadimageForm">
       <input type="hidden" name="utf8" value="✓">
@@ -131,16 +161,16 @@
       <input type="hidden" name="hint" id="hint" value="#replaceme">
       <iframe id="hidden_upload" name="hidden_upload" src="javascript:void(0)" style='width:0;height:0;border:0px solid #fff'></iframe>
 
-      <label id='file_upload_label' for='file_upload'>{#uploadimage_dlg.input}:</label>
+      <label id='file_upload_label' for='file_upload'>{#Choose an image}:</label>
       <input type='file' name='file' id='file_upload'>
       <p id="error_message"></p>
-      <label id='alt_text_label' for='alt_text'>{#uploadimage_dlg.alt_text}:</label>
+      <label id='alt_text_label' for='alt_text'>{#Image description}:</label>
       <input type="text" name="alt" id="alt_text">
 
       <div class="mceActionPanel">
-        <input type="button" id="insert" name="insert" value="{#uploadimage_dlg.insert}" onclick="UploadImageDialog.insert();"/>
         <img src="img/spinner.gif" alt="#{uploadimage_dlg.uploading}" id="upload_spinner" height="16" width="16" class="inactive">
-        <input type="button" id="cancel" name="cancel" value="{#uploadimage_dlg.cancel}" onclick="tinyMCEPopup.close();" />
+        <input type="button" id="insert" name="insert" value="{#Insert}" onclick="UploadImageDialog.insert();"/>
+        <input type="button" id="cancel" name="cancel" value="{#Cancel}" onclick="top.tinymce.activeEditor.windowManager.close();" />
       </div>
     </form>
   </body>

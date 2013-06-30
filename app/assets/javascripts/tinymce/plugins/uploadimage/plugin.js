@@ -13,12 +13,12 @@
         });
       });
       ed.addButton('uploadimage', {
-        title: 'uploadimage.desc',
         cmd: 'mceUploadImage',
         image: url + '/img/uploadimage.png'
       });
       return ed.onNodeChange.add(function(ed, cm, n) {
         return cm.setActive('uploadimage', n.nodeName === 'IMG');
+        title: ed.translate('Insert an image from your computer'),
       });
     },
     createControl: function(n, cm) {
