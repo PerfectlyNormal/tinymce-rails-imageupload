@@ -3,11 +3,11 @@
   Simple plugin for TinyMCE that allows uploading images and inserting.
   It makes no assumptions about how you store the images, but it POSTs to a URL and expects JSON back (see the Setup section).
 
-  This plugin borrows heavily from work done by [Peter Shoukry](http://77effects.com/).
+  This plugin started as a copy of work done by [Peter Shoukry](http://77effects.com/), but has since mutated into something entirely different.
 
   The icon used for the button comes from the icon set [Silk by famfamfam](http://www.famfamfam.com/lab/icons/silk/) and the spinner image from [ajaxload.info](http://ajaxload.info/).
 
-  Support for TinyMCE 3 is currently available in the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3).
+  Support for TinyMCE 3 is currently available in the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3). The master branch is targetting TinyMCE 4.x.
 
 ## Requirements
 
