@@ -7,16 +7,18 @@
 
   The icon used for the button comes from the icon set [Silk by famfamfam](http://www.famfamfam.com/lab/icons/silk/) and the spinner image from [ajaxload.info](http://ajaxload.info/).
 
+  Support for TinyMCE 3 is currently available in the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3).
+
 ## Requirements
 
   * Rails >= 3.1
-  * TinyMCE using the advanced theme
+  * TinyMCE4 using the advanced theme
 
 ## Setup
 
 ### Add the gem to your Gemfile
 
-    gem 'tinymce-rails-imageupload', '~> 3.5.6.3'
+    gem 'tinymce-rails-imageupload', '~> 4.0'
 
 ### Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
 
