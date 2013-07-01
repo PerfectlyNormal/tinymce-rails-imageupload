@@ -66,7 +66,7 @@
           var input = document.getElementById("file_upload");
 
           if(input.value != "") {
-            document.getElementById("upload_spinner").className = '';
+            top.tinymce.DOM.removeClass(document.getElementById("upload_spinner"), 'inactive');
             this.f.submit();
           } else {
             this.handleError('You must choose a file');
@@ -74,7 +74,7 @@
         },
 
         uploadDone: function() {
-          document.getElementById("upload_spinner").className = 'inactive';
+          top.tinymce.DOM.addClass(document.getElementById("upload_spinner"), 'inactive');
           var iframe = document.getElementById("hidden_upload");
           if(iframe.document || iframe.contentDocument) {
             var doc = iframe.contentDocument || iframe.contentWindow.document;
@@ -166,8 +166,8 @@
       <input type="text" name="alt" id="alt_text">
 
       <div class="mceActionPanel">
-        <img src="img/spinner.gif" alt="#{uploadimage_dlg.uploading}" id="upload_spinner" height="16" width="16" class="inactive">
         <input type="button" id="insert" name="insert" value="{#Insert}" onclick="UploadImageDialog.insert();"/>
+        <div id="upload_spinner" class="mce-throbber inactive"></div>
         <input type="button" id="cancel" name="cancel" value="{#Cancel}" onclick="top.tinymce.activeEditor.windowManager.close();" />
       </div>
     </form>
