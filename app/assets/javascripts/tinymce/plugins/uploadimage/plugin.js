@@ -1,38 +1,26 @@
 (function() {
   tinymce.PluginManager.requireLangPack('uploadimage');
-  tinymce.create('tinymce.plugins.UploadImagePlugin', {
-    init: function(ed, url) {
-      ed.addCommand('mceUploadImage', function() {
-        return ed.windowManager.open({
-          file: url + '/dialog.html',
-          width: 350 + parseInt(ed.getLang('uploadimage.delta_width', 0)),
-          height: 180 + parseInt(ed.getLang('uploadimage.delta_height', 0)),
-          inline: 1
+
+  tinymce.create('tinymce.plugins.UploadImage', {
+    UploadImage: function(ed, url) {
+      var form, iframe, win, editor = ed;
+      function showDialog() {
+        this.win = editor.windowManager.open({
+          width:  350 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
+          height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
+          url: url + '/dialog.html',
         }, {
           plugin_url: url
         });
-      });
+      }
       ed.addButton('uploadimage', {
-        cmd: 'mceUploadImage',
-        image: url + '/img/uploadimage.png'
-      });
-      return ed.onNodeChange.add(function(ed, cm, n) {
-        return cm.setActive('uploadimage', n.nodeName === 'IMG');
         title: ed.translate('Insert an image from your computer'),
+        onclick: showDialog,
+        image: url + '/img/uploadimage.png',
+        stateSelector: 'img[data-mce-uploadimage]'
       });
-    },
-    createControl: function(n, cm) {
-      return null;
-    },
-    getInfo: function() {
-      return {
-        longname: 'UploadImage plugin',
-        author: 'Per Christian B. Viken (borrows heavily from work done by Peter Shoukry of 77effects.com)',
-        authorurl: 'eastblue.org/oss',
-        infourl: 'eastblue.org/oss',
-        version: '1.0'
-      };
     }
   });
-  return tinymce.PluginManager.add('uploadimage', tinymce.plugins.UploadImagePlugin);
+
+  tinymce.PluginManager.add('uploadimage', tinymce.plugins.UploadImage);
 })();
