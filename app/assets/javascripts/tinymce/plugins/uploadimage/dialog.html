@@ -10,7 +10,6 @@
       #upload_spinner { padding-top: 4px; padding-left: 3px; }
       #upload_spinner.inactive { display: none; }
     </style>
-    <script type="text/javascript" src="../../tiny_mce_popup.js"></script>
     <script type="text/javascript">
 
       var UploadImageDialog = {
@@ -19,8 +18,8 @@
         init: function() {
           var editor = this.editor = top.tinymce.activeEditor;
           this.f = document.forms[0];
-          this.f.action = tinyMCEPopup.getParam("uploadimage_form_url", "/tinymce_assets");
-          document.getElementById("hint").value = tinyMCEPopup.getParam("uploadimage_hint", "");
+          this.f.action = editor.getParam("uploadimage_form_url", "/tinymce_assets");
+          document.getElementById("hint").value = editor.getParam("uploadimage_hint", "");
           document.getElementById("authenticity_token").value = this.getMetaContents('csrf-token');
 
           this.iframe = document.getElementById("hidden_upload");
@@ -93,7 +92,7 @@
               UploadImageDialog.handleError(json["error"]["message"]);
             else {
               tinyMCE.execCommand('mceInsertContent', false, UploadImageDialog.buildHTML(json));
-              tinyMCEPopup.close();
+              this.editor.windowManager.close();
             }
           } catch(e) {
             UploadImageDialog.handleError('Got a bad response from the server');
@@ -101,7 +100,7 @@
         },
 
         buildHTML: function(json) {
-          var default_class = tinyMCEPopup.getParam("uploadimage_default_img_class", "");
+          var default_class = this.editor.getParam("uploadimage_default_img_class", "");
           var alt_text = document.getElementById("alt_text").value;
 
           var imgstr = "<img src='" + json["image"]["url"] + "'";
@@ -149,7 +148,6 @@
         },
       };
 
-      tinyMCEPopup.onInit.add(UploadImageDialog.init, UploadImageDialog);
     </script>
   </head>
   <body>
