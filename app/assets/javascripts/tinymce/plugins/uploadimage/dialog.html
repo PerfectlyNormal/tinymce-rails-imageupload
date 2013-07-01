@@ -91,7 +91,7 @@
             if(json["error"])
               UploadImageDialog.handleError(json["error"]["message"]);
             else {
-              tinyMCE.execCommand('mceInsertContent', false, UploadImageDialog.buildHTML(json));
+              this.editor.execCommand('mceInsertContent', false, UploadImageDialog.buildHTML(json));
               this.editor.windowManager.close();
             }
           } catch(e) {
@@ -148,6 +148,9 @@
         },
       };
 
+      window.onload = function() {
+        UploadImageDialog.init();
+      }
     </script>
   </head>
   <body>
