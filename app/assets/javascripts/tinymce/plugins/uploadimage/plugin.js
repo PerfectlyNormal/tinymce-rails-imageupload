@@ -13,11 +13,19 @@
           plugin_url: url
         });
       }
-      ed.addButton('uploadimage', {
-        title: ed.translate('Insert an image from your computer'),
-        onclick: showDialog,
-        image: url + '/img/uploadimage.png',
-        stateSelector: 'img[data-mce-uploadimage]'
+      // Add a button that opens a window
+      editor.addButton('uploadimage', {
+        tooltip: ed.translate('Insert an image from your computer'),
+        icon : 'image',
+        onclick: showDialog
+      });
+
+      // Adds a menu item to the tools menu
+      editor.addMenuItem('uploadimage', {
+        text: ed.translate('Insert an image from your computer'),
+        icon : 'image',
+        context: 'insert',
+        onclick: showDialog
       });
     }
   });
