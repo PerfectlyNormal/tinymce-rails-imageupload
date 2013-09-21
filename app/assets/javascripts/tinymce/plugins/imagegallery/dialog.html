@@ -12,10 +12,8 @@
       #upload_spinner.inactive { display: none; }
     </style>
    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-   <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
     <script type="text/javascript">
     handleClick =function(url) {
-      console.log(url);
       ImageGalleryDialog.handleSelectImage(url);
     }
 
@@ -25,16 +23,21 @@
         init: function(result) {
           var editor = this.editor = top.tinymce.activeEditor;
 
-          this.loadimages_to_thumbails(this, result);
+          this.loadimages_to_thumbails(result);
           this.iframe = document.getElementById("hidden_upload");
           this.translatePage();
         },
 
-        loadimages_to_thumbails : function(imagegallerydialog, images) {
+        loadimages_to_thumbails : function(images) {
+          $("#thumbnails_list").empty();
           for (var index = 0; index < images.length; index++)
           {
+            if (index %3 ==0)
+            {
+              $("#thumbnails_list").append('<div class="row-fluid">')
+            }
            $("#thumbnails_list").append(
-            '<li class="span4">'+
+            '<li class="span3">'+
             '<a id="image'+images[index].id+'" href="#" class="thumbnail">'+
             '<img data-src="holder.js/300x200" alt="" src="'+images[index].url+'">'+
             '</a>'+
@@ -44,7 +47,11 @@
             '</li>');
 
            $("#image"+images[index].id).attr('onclick', 'handleClick(\''+images[index].url+'\');');
-
+            if (index %3 ==2)
+            {
+              $("#thumbnails_list").append('</div>')
+            }
+            
           }
         },
         // Mostly copied straight from tinyMCE3.
@@ -64,7 +71,6 @@
           document.dir = editor.getParam('directionality','');
 
           newValue = html.replace(expr, function(full, key) {
-            console.log("Translating '" + key + "'");
             return i18n.translate(key);
           });
 
@@ -176,11 +182,55 @@
           return null;
         },
       };
+      search_image = function() {
+        //alert("search image");
+        if (window.loaded)
+        { 
+          if ($('#search_form').val()!="")
+          {
 
+              $.ajax({url:"/images.json?search="+$('#search_form').val(),success:function(result){
+                      ImageGalleryDialog.loadimages_to_thumbails(result);
+                      //ImageGalleryDialog.init(result);
+            }});
+          }
+          else
+          {
+           $.ajax({url:"/images.json?limit=10&offset=0",success:function(result){
+                                ImageGalleryDialog.loadimages_to_thumbails(result);
+                                //ImageGalleryDialog.init(result);
+                      }});
+          }
+
+      }
+      }
+      get_previous_images = function(){
+        if(window.previous_offset>=0)
+        {
+        $.ajax({url:"/images.json?limit="+window.limit+"&offset="+window.previous_offset,success:function(result){
+                      window.next_offset = window.previous_offset + result.length;
+                      window.previous_offset = window.next_offset - result.length;
+                      ImageGalleryDialog.loadimages_to_thumbails(result);
+            }});
+        }
+      }
+
+      get_next_images = function(){
+        $.ajax({url:"/images.json?limit="+window.limit+"&offset="+window.next_offset,success:function(result){
+                      window.previous_offset = window.next_offset - result.length;
+                      window.next_offset = window.next_offset + result.length;
+                      ImageGalleryDialog.loadimages_to_thumbails(result);
+            }});
+      }
       window.onload = function() {
-
-        $.ajax({url:"/images.json",success:function(result){
+                      window.next_offset =0
+                      window.previous_offset = 0;
+                      window.limit = 10;
+        $.ajax({url:"/images.json?limit=10&offset=0",success:function(result){
+                      window.next_offset = window.next_offset + result.length;
+                      //window.previous_offset = window.previous_offset - result.length;
                       ImageGalleryDialog.init(result);
+                      window.loaded = true;
             }});
       }
     </script>
@@ -190,6 +240,17 @@
     <div class="row-fluid">
     <h4>Image Gallery</h4>
     <hr/>
+
+    <form class="form-search" method="get">
+      <input id="search_form" type="text" class="input-medium search-query" placeholder="Search Images">
+      <a class="btn" onclick="search_image();">Search</a>
+      <a class="btn" onclick="search_image();">Refresh</a>
+      <a class="btn" value="Close" onclick="top.tinymce.activeEditor.windowManager.close();">Close</a>
+    </form>
+    <ul class="pager">
+      <li><a href="#" onclick="get_previous_images();">Previous</a></li>
+      <li><a href="#" onclick="get_next_images();">Next</a></li>
+    </ul>
     <ul class="thumbnails" id="thumbnails_list">
 
     </ul>    
