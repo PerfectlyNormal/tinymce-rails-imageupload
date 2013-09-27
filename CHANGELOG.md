@@ -2,6 +2,7 @@
 
 * Adapt to tinymce-rails changed asset task, which broke precompilation with
   newer versions. #44
+* Add license information to the gemspec
 
 # 3.5.8.5 / 2013-05-07
 

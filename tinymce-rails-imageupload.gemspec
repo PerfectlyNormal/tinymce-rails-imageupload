@@ -10,6 +10,7 @@ Gem::Specification.new do |s|
   s.homepage    = "http://eastblue.org/oss"
   s.summary     = %q{TinyMCE plugin for taking image uploads in Rails >= 3.1}
   s.description = %q{TinyMCE plugin for taking image uploads in Rails >= 3.1}
+  s.licenses    = "MIT"
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
