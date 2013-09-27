@@ -1,3 +1,8 @@
+# 3.5.8.6 / 2013-09-27
+
+* Adapt to tinymce-rails changed asset task, which broke precompilation with
+  newer versions. #44
+
 # 3.5.8.5 / 2013-05-07
 
 * Depend on tinymce-rails ~> 3.5.8.1 for the asset tasks. Thanks to joshcrews (Josh Crews)
