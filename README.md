@@ -1,3 +1,8 @@
+# IMPORTANT NOTE:
+This version is being rewritten to work with TinyMCE 4.x, and is
+currently **not usable**. For the stable version targetting TinyMCE 3, see
+the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3)
+
 # tinymce-rails-imageupload
 
 Simple plugin for TinyMCE that allows uploading images and inserting.
@@ -11,11 +16,6 @@ The icon used for the button comes from the icon set [Silk by famfamfam](http://
 
 Support for TinyMCE 3 is currently available in the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3).
 The master branch is targetting TinyMCE 4.x.
-
-# IMPORTANT NOTE:
-This version is being rewritten to work with TinyMCE 4.x, and is
-currently **not usable**. For the stable version targetting TinyMCE 3, see
-the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3)
 
 
 ## Requirements
