@@ -43,7 +43,6 @@
           document.dir = editor.getParam('directionality','');
 
           newValue = html.replace(expr, function(full, key) {
-            console.log("Translating '" + key + "'");
             return i18n.translate(key);
           });
 
