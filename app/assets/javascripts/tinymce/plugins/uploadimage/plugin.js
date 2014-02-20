@@ -3,10 +3,12 @@
 
   tinymce.create('tinymce.plugins.UploadImage', {
     UploadImage: function(ed, url) {
-      var form, iframe, win, editor = ed;
+      var form,
+          iframe,
+          editor = ed;
       
       function showDialog() {
-        this.win = editor.windowManager.open({
+        var win = editor.windowManager.open({
           title: ed.translate('Insert an image from your computer'),
           width:  500 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
           height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
