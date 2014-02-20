@@ -6,6 +6,7 @@
       var form,
           iframe,
           win,
+          throbber,
           editor = ed;
       
       function showDialog() {
@@ -17,6 +18,7 @@
             {type: 'iframe',  id: 'hidden_upload', classes: 'uploadimage-iframe', name: 'hidden_upload', url: 'javascript:void(0)'},
             {type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file'},
             {type: 'textbox', name: 'alt',  label: ed.translate('Image description')},
+            {type: 'container', classes: 'uploadimage_progress'},
           ],
           buttons: [
             {
@@ -36,6 +38,10 @@
       function insertImage() {
         var iframe = win.find("iframe")[0];
         var form = createForm(iframe._id);
+        // FIXME: Throbber not working
+        throbber = new top.tinymce.ui.Throbber(win.find(".uploadimage_progress")[0].getEl());
+        throbber.show();
+
         form.submit();
       }
       
