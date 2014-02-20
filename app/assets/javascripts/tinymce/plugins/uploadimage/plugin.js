@@ -10,7 +10,10 @@
           title: ed.translate('Insert an image from your computer'),
           width:  400 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
           height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
-          url: url + '/dialog.html',
+          body: [
+            {type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file'},
+            {type: 'textbox', name: 'alt',  label: ed.translate('Image description')},
+          ],
           buttons: [
             {
               text: ed.translate('Insert'),
