@@ -4,12 +4,23 @@
   tinymce.create('tinymce.plugins.UploadImage', {
     UploadImage: function(ed, url) {
       var form, iframe, win, editor = ed;
+      
       function showDialog() {
         this.win = editor.windowManager.open({
           title: ed.translate('Insert an image from your computer'),
           width:  400 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
           height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
           url: url + '/dialog.html',
+          buttons: [
+            {
+              text: ed.translate('Insert'),
+              onclick: function() { console.log("FIXME: Submit the form please.") }
+            },
+            {
+              text: ed.translate('Cancel'),
+              onclick: ed.windowManager.close
+            }
+          ]
         }, {
           plugin_url: url
         });
