@@ -84,7 +84,7 @@
 
         handleResponse: function(ret) {
           try {
-            var json = JSON.parse(ret);
+            var json = top.tinymce.util.JSON.parse(ret);
 
             if(json["error"])
               UploadImageDialog.handleError(json["error"]["message"]);
