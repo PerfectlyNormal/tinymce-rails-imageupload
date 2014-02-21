@@ -146,7 +146,7 @@
 
       function buildHTML(json) {
         var default_class = ed.getParam("uploadimage_default_img_class", "");
-        var alt_text = "FIXME PLOX";//document.getElementById("alt_text").value;
+        var alt_text = getAltText();
 
         var imgstr = "<img src='" + json["image"]["url"] + "'";
 
@@ -161,6 +161,16 @@
         imgstr += " alt='" + alt_text + "'/>";
 
         return imgstr;
+      }
+
+      function getAltText() {
+        var inputs = form.getElementsByTagName("input");
+
+        for(var i in inputs)
+          if(inputs[i].name == "alt")
+            return inputs[i].value;
+
+        return "";
       }
 
       function getMetaContents(mn) {
