@@ -137,7 +137,7 @@
         if(message)
           message.getElementsByTagName("p")[0].innerHTML = "&nbsp;";
       }
-      
+
       function handleError(error) {
         var message = win.find(".error")[0].getEl();
 
