@@ -8,12 +8,14 @@ Gem::Specification.new do |s|
   s.authors     = ["Per Christian B. Viken"]
   s.email       = ["perchr@northblue.org"]
   s.homepage    = "http://eastblue.org/oss"
-  s.summary     = %q{TinyMCE plugin for taking image uploads in Rails >= 3.1}
-  s.description = %q{TinyMCE plugin for taking image uploads in Rails >= 3.1}
+  s.summary     = %q{TinyMCE plugin for taking image uploads in Rails >= 3.2}
+  s.description = %q{TinyMCE plugin for taking image uploads in Rails >= 3.2. Image storage is handled manually, so works with everything.}
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
+
+  s.license = "MIT"
 
   s.add_runtime_dependency     "railties",      ">= 3.1"
   s.add_runtime_dependency     "tinymce-rails", "~> 4.0"
