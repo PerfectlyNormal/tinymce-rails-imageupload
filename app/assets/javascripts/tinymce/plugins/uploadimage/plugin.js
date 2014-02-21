@@ -48,10 +48,15 @@
         form.appendChild(createElement('input', {type: 'hidden', name: 'authenticity_token', value: getMetaContents('csrf-token')}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'hint', value: ed.getParam("uploadimage_hint", "")}));
         win.find("*").each(function(ctrl) {
-          var name = ctrl.name(), value = ctrl.value();
+          var name = ctrl.name(),
+              value = ctrl.value(),
+              el;
           if (name && typeof(value) != "undefined") {
-            console.log("Stealing ", ctrl.getEl());
-            form.appendChild(ctrl.getEl());
+            /* WHAT IS THIS I DON'T EVEN… WHY DON'T YOU USE name ATTRIBUTES!? */
+            el = ctrl.getEl();
+            el.name = name;
+            
+            form.appendChild(el);
           }
         });
 
