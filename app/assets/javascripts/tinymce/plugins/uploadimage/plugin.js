@@ -18,7 +18,7 @@
             {type: 'iframe',  url: 'javascript:void(0)'},
             {type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file'},
             {type: 'textbox', name: 'alt',  label: ed.translate('Image description')},
-            {type: 'container', classes: 'uploadimage_progress'},
+            {type: 'container', classes: 'error', html: "<p style='color: #b94a48;'>&nbsp;</p>"},
           ],
           buttons: [
             {
