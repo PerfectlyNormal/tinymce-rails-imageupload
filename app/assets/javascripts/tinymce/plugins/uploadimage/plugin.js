@@ -48,30 +48,35 @@
           enctype: 'multipart/form-data',
           accept_charset: "UTF-8",
         });
-        // Might have several instances on the same page, so let TinyMCE create unique IDs
+
+        // Might have several instances on the same page,
+        // so we TinyMCE create unique IDs and use those.
         iframe.getEl().name = iframe._id;
 
-        // Create some useful hidden inputs
+        // Create some needed hidden inputs
         form.appendChild(createElement('input', {type: "hidden", name: "utf8", value: "✓"}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'authenticity_token', value: getMetaContents('csrf-token')}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'hint', value: ed.getParam("uploadimage_hint", "")}));
 
-        // Steal the TinyMCE-added inputs (file and alt)
-        win.find("*").each(function(ctrl) {
-          var name = ctrl.name(),
-              value = ctrl.value(),
-              el;
-          if (name && typeof(value) != "undefined") {
-            /* WHAT IS THIS I DON'T EVEN… WHY DON'T YOU USE name ATTRIBUTES!? */
-            el = ctrl.getEl();
-            el.name = name;
-
-            form.appendChild(el);
-          }
-        });
-
         var el = win.getEl();
         var body = document.getElementById(el.id + "-body");
+
+        // Copy everything TinyMCE made into our form
+        var containers = body.getElementsByClassName('mce-container');
+        for(var i = 0; i < containers.length; i++) {
+          form.appendChild(containers[i]);
+        }
+
+        // Fix inputs, since TinyMCE hates HTML and forms
+        var inputs = form.getElementsByTagName('input');
+        for(var i = 0; i < inputs.length; i++) {
+          var ctrl = inputs[i];
+
+          if(ctrl.tagName.toLowerCase() == 'input' && ctrl.type != "hidden") {
+            ctrl.name = ctrl.type == "file" ? "file" : "alt";
+          }
+        }
+
         body.appendChild(form);
       }
 
