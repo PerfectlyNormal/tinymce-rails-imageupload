@@ -60,11 +60,16 @@
       }
 
       function insertImage() {
-        // FIXME: Throbber not working
-        throbber = new top.tinymce.ui.Throbber(win.find(".uploadimage_progress")[0].getEl());
+        throbber = new top.tinymce.ui.Throbber(win.getEl());
         throbber.show();
 
         form.submit();
+      }
+
+      function uploadDone() {
+        if(throbber) {
+          throbber.hide();
+        }
       }
 
       function createElement(element, attributes) {
