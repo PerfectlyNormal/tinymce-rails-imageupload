@@ -154,7 +154,7 @@
 
       function buildHTML(json) {
         var default_class = ed.getParam("uploadimage_default_img_class", "");
-        var alt_text = getAltText();
+        var alt_text = getInputValue("alt");
 
         var imgstr = "<img src='" + json["image"]["url"] + "'";
 
@@ -171,11 +171,11 @@
         return imgstr;
       }
 
-      function getAltText() {
+      function getInputValue(name) {
         var inputs = form.getElementsByTagName("input");
 
         for(var i in inputs)
-          if(inputs[i].name == "alt")
+          if(inputs[i].name == name)
             return inputs[i].value;
 
         return "";
