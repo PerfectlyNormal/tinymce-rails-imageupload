@@ -71,6 +71,20 @@
         throbber = new top.tinymce.ui.Throbber(win.getEl());
         throbber.show();
 
+
+        /* Add event listeners.
+         * We remove the existing to avoid them being called twice in case
+         * of errors and re-submitting afterwards.
+         */
+        var target = iframe.getEl();
+        if(target.attachEvent) {
+          target.detachEvent('onload', uploadDone);
+          target.attachEvent('onload', uploadDone);
+        } else {
+          target.removeEventListener('load', uploadDone);
+          target.addEventListener('load', uploadDone, false);
+        }
+
         form.submit();
       }
 
