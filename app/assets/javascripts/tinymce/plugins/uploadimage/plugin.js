@@ -79,6 +79,7 @@
         throbber = new top.tinymce.ui.Throbber(win.getEl());
         throbber.show();
 
+        clearErrors();
 
         /* Add event listeners.
          * We remove the existing to avoid them being called twice in case
@@ -126,6 +127,13 @@
         }
       }
 
+      function clearErrors() {
+        var message = win.find(".error")[0].getEl();
+
+        if(message)
+          message.getElementsByTagName("p")[0].innerHTML = "&nbsp;";
+      }
+      
       function handleError(error) {
         var message = win.find(".error")[0].getEl();
 
