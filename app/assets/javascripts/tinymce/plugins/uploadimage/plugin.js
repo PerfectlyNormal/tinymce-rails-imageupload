@@ -76,6 +76,10 @@
       }
 
       function insertImage() {
+        if(getInputValue("file") == "") {
+          return handleError('You must choose a file');
+        }
+
         throbber = new top.tinymce.ui.Throbber(win.getEl());
         throbber.show();
 
