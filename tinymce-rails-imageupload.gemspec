@@ -11,8 +11,14 @@ Gem::Specification.new do |s|
   s.summary     = %q{TinyMCE plugin for taking image uploads in Rails >= 3.2}
   s.description = %q{TinyMCE plugin for taking image uploads in Rails >= 3.2. Image storage is handled manually, so works with everything.}
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.files         = [Dir["app/assets/javascripts/tinymce/plugins/uploadimage/**/*.js"],
+                     Dir["lib/**/*.rb"],
+                     "lib/tasks/tinymce-uploadimage-assets.rake",
+                     "CHANGELOG.md",
+                     "LICENSE",
+                     "README.md",
+                    ].flatten
+  s.test_files    = []
   s.require_paths = ["lib"]
 
   s.license = "MIT"
