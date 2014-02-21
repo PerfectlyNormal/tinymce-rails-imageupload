@@ -138,7 +138,7 @@
         var message = win.find(".error")[0].getEl();
 
         if(message)
-          message.getElementsByTagName("p").innerHTML = ed.translate(error);
+          message.getElementsByTagName("p")[0].innerHTML = ed.translate(error);
       }
 
       function createElement(element, attributes) {
