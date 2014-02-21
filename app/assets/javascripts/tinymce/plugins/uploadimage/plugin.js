@@ -92,6 +92,37 @@
         if(throbber) {
           throbber.hide();
         }
+
+        var target = iframe.getEl();
+        if(target.document || target.contentDocument) {
+          var doc = target.contentDocument || target.contentWindow.document;
+          handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
+        } else {
+          handleError("Didn't get a response from the server");
+        }
+      }
+
+      function handleResponse(ret) {
+        try {
+          var json = tinymce.util.JSON.parse(ret);
+          console.log("Parsed", json);
+
+          if(json["error"]) {
+            handleError(json["error"]["message"]);
+          } else {
+            ed.execCommand('mceInsertContent', false, buildHTML(json));
+            ed.windowManager.close();
+          }
+        } catch(e) {
+          handleError('Got a bad response from the server');
+        }
+      }
+
+      function handleError(error) {
+        var message = win.find(".error")[0].getEl();
+
+        if(message)
+          message.getElementsByTagName("p").innerHTML = ed.translate(error);
       }
 
       function createElement(element, attributes) {
@@ -103,6 +134,25 @@
         }
 
         return el;
+      }
+
+      function buildHTML(json) {
+        var default_class = ed.getParam("uploadimage_default_img_class", "");
+        var alt_text = "FIXME PLOX";//document.getElementById("alt_text").value;
+
+        var imgstr = "<img src='" + json["image"]["url"] + "'";
+
+        if(default_class != "")
+          imgstr += " class='" + default_class + "'";
+
+        if(json["image"]["height"])
+          imgstr += " height='" + json["image"]["height"] + "'";
+        if(json["image"]["width"])
+          imgstr += " width='"  + json["image"]["width"]  + "'";
+
+        imgstr += " alt='" + alt_text + "'/>";
+
+        return imgstr;
       }
 
       function getMetaContents(mn) {
