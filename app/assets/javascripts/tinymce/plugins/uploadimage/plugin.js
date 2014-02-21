@@ -8,7 +8,7 @@
           win,
           throbber,
           editor = ed;
-      
+
       function showDialog() {
         win = editor.windowManager.open({
           title: ed.translate('Insert an image from your computer'),
@@ -30,7 +30,7 @@
               text: ed.translate('Cancel'),
               onclick: ed.windowManager.close
             }
-          ]
+          ],
         }, {
           plugin_url: url
         });
@@ -50,9 +50,13 @@
         });
         // Might have several instances on the same page, so let TinyMCE create unique IDs
         iframe.getEl().name = iframe._id;
+
+        // Create some useful hidden inputs
         form.appendChild(createElement('input', {type: "hidden", name: "utf8", value: "✓"}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'authenticity_token', value: getMetaContents('csrf-token')}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'hint', value: ed.getParam("uploadimage_hint", "")}));
+
+        // Steal the TinyMCE-added inputs (file and alt)
         win.find("*").each(function(ctrl) {
           var name = ctrl.name(),
               value = ctrl.value(),
@@ -61,7 +65,7 @@
             /* WHAT IS THIS I DON'T EVEN… WHY DON'T YOU USE name ATTRIBUTES!? */
             el = ctrl.getEl();
             el.name = name;
-            
+
             form.appendChild(el);
           }
         });
