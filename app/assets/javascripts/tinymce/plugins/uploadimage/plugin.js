@@ -76,7 +76,18 @@
           var ctrl = inputs[i];
 
           if(ctrl.tagName.toLowerCase() == 'input' && ctrl.type != "hidden") {
-            ctrl.name = ctrl.type == "file" ? "file" : "alt";
+            if(ctrl.type == "file") {
+              ctrl.name = "file";
+
+              // Hack styles
+              tinymce.DOM.setStyles(ctrl, {
+                'border': 0,
+                'boxShadow': 'none',
+                'webkitBoxShadow': 'none',
+              });
+            } else {
+              ctrl.name = "alt";
+            }
           }
         }
 
