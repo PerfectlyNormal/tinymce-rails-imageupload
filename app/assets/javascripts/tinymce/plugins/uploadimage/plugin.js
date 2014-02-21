@@ -24,6 +24,7 @@
             {
               text: ed.translate('Insert'),
               onclick: insertImage,
+              subtype: 'primary'
             },
             {
               text: ed.translate('Cancel'),
