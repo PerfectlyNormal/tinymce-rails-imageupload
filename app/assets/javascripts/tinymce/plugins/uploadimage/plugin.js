@@ -15,7 +15,7 @@
           width:  500 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
           height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
           body: [
-            {type: 'iframe',  id: 'hidden_upload', classes: 'uploadimage-iframe', name: 'hidden_upload', url: 'javascript:void(0)'},
+            {type: 'iframe',  url: 'javascript:void(0)'},
             {type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file'},
             {type: 'textbox', name: 'alt',  label: ed.translate('Image description')},
             {type: 'container', classes: 'uploadimage_progress'},
@@ -44,6 +44,8 @@
           enctype: 'multipart/form-data',
           accept_charset: "UTF-8",
         });
+        // Might have several instances on the same page, so let TinyMCE create unique IDs
+        iframe.getEl().name = iframe._id;
         form.appendChild(createElement('input', {type: "hidden", name: "utf8", value: "✓"}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'authenticity_token', value: getMetaContents('csrf-token')}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'hint', value: ed.getParam("uploadimage_hint", "")}));
