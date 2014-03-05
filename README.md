@@ -1,6 +1,6 @@
 # IMPORTANT NOTE:
 This version is being rewritten to work with TinyMCE 4.x, and is
-currently **not usable**. For the stable version targetting TinyMCE 3, see
+currently not very tested. Use at your own risk, feedback welcome. For the stable version targetting TinyMCE 3, see
 the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3)
 
 # tinymce-rails-imageupload
