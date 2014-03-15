@@ -25,7 +25,7 @@ The master branch is targetting TinyMCE 4.x.
 
 ### Add the gem to your Gemfile
 
-    gem 'tinymce-rails-imageupload', '~> 4.0.0'
+    gem 'tinymce-rails-imageupload', '~> 4.0.0', :git => 'https://github.com/PerfectlyNormal/tinymce-rails-imageupload.git'
 
 ### Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
 
