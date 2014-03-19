@@ -137,12 +137,10 @@
       function handleResponse(ret) {
         try {
           var json = tinymce.util.JSON.parse(ret);
-          // console.log("Parsed", json);
 
           if(json["error"]) {
             handleError(json["error"]["message"]);
           } else {
-            console.log(ed);
             ed.execCommand('mceInsertContent', false, buildHTML(json));
             ed.windowManager.close();
           }
