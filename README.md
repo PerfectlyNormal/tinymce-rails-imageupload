@@ -15,6 +15,9 @@ but has since mutated into something entirely different.
 Support for TinyMCE 3 is currently available in the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3).
 The master branch is targetting TinyMCE 4.x.
 
+## Demo
+
+A small demo app demonstrating a working setup for Rails 3.2 ([demo](http://murmuring-lowlands-1342.herokuapp.com/), [source](https://github.com/PerfectlyNormal/tinymce-rails-imageupload-demo3)), and for Rails 4 ([demo](http://murmuring-lowlands-7502.herokuapp.com/), [source](https://github.com/PerfectlyNormal/tinymce-rails-imageupload-demo)) is available for study.
 
 ## Requirements
 
