@@ -1,7 +1,7 @@
 {
   "name": "tinymce-rails-imageupload",
   "repository": "PerfectlyNormal/tinymce-rails-imageupload",
-  "version": "3.5.6",
+  "version": "3.5.8",
   "homepage": "https://github.com/PerfectlyNormal/tinymce-rails-imageupload",
   "authors": [
     "Per Christian B. Viken <perchr@northblue.org>"
@@ -14,7 +14,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "tinymce": "3.5.6"
+    "tinymce": "3.5.8"
   },
   "main": "vendor/assets/javascripts/tinymce/plugins/uploadimage/editor_plugin.js"
 }
