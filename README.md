@@ -64,6 +64,18 @@ For TinyMCE4 support, use the master branch.
 
   `class="..."` will only be added to the img tag if a default is specified. Otherwise the inserted HTML is just `<img src="...">`.
 
+## Asset Pipeline
+
+Several people have had trouble with asset precompilation using the asset pipeline, both for the locales, and the plugin itself.
+
+Depending on your version of Rails, and the alignment of the moon, it might work out of the box, or you'll have to add something like this in your configuration:
+
+`config.assets.precompile += %w( tinymce/plugins/uploadimage/plugin.js tinymce/plugins/uploadimage/langs/en.js )`
+
+Obviously adjust depending on the language or languages you want to use.
+
+Since TinyMCE doesn't know about the asset pipeline however, you could just place it under `public/`, and that should probably work as well. As with all things Rails and assets related, YMMV.
+
 ## Error handling
 
 To notify the uploader that an error occurred, return JSON containing a `error` key with a `message`.
