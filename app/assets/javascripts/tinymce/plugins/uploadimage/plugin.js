@@ -190,7 +190,12 @@
 
         imgstr += " alt='" + alt_text + "'/>";
 
-        return imgstr;
+        var figstr = "<figure class='figure'>"
+            figstr += imgstr;
+            figstr += "<figcaption class='caption'>" + alt_text + "</figcaption>"
+            figstr += "</figure>"
+
+        return figstr;
       }
 
       function getInputValue(name) {
