@@ -176,6 +176,7 @@
 
       function buildHTML(json) {
         var default_class = ed.getParam("uploadimage_default_img_class", "");
+        var figure = ed.getParam("uploadimage_figure", false);
         var alt_text = getInputValue("alt");
 
         var imgstr = "<img src='" + json["image"]["url"] + "'";
@@ -190,12 +191,25 @@
 
         imgstr += " alt='" + alt_text + "'/>";
 
-        var figstr = "<figure class='figure'>"
-            figstr += imgstr;
-            figstr += "<figcaption class='caption'>" + alt_text + "</figcaption>"
-            figstr += "</figure>"
+        if(figure) {
+          var figureClass = ed.getParam("uploadimage_figure_class", "figure");
+          var figcaptionClass = ed.getParam("uploadimage_figcaption_class", "figcaption");
 
-        return figstr;
+          var figstr = "<figure";
+
+          if (figureClass !== "")
+            figstr += "class='" + figureClass + "'";
+          figstr += ">" + imgstr;
+          figstr += "<figcaption";
+          if (figcaptionClass != "")
+            figstr += "class='" + figcaptionClass + "'";
+          figstr += ">" + alt_text + "</figcaption>";
+          figstr += "</figure>";
+
+          return figstr;
+        } else {
+          return imgstr;
+        }
       }
 
       function getInputValue(name) {
