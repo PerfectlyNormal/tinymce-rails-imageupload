@@ -198,11 +198,11 @@
           var figstr = "<figure";
 
           if (figureClass !== "")
-            figstr += "class='" + figureClass + "'";
+            figstr += " class='" + figureClass + "'";
           figstr += ">" + imgstr;
           figstr += "<figcaption";
           if (figcaptionClass != "")
-            figstr += "class='" + figcaptionClass + "'";
+            figstr += " class='" + figcaptionClass + "'";
           figstr += ">" + alt_text + "</figcaption>";
           figstr += "</figure>";
 
