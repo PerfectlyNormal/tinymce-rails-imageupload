@@ -1,4 +1,4 @@
-tinyMCE.addI18n('en', {
+tinyMCE.addI18n('pl', {
   'Insert an image from your computer': 'Wstaw zdjęcie z komputera',
   'Insert image': 'Wstaw zdjęcie',
   'Choose an image': "Wybierz zdjęcie",
