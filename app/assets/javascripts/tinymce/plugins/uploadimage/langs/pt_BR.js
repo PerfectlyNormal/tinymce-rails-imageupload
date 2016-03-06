@@ -7,5 +7,5 @@ tinyMCE.addI18n('pt_BR', {
   "Didn't get a response from the server": "Servidor não está respondendo",
   'Insert': "Inserir",
   'Cancel': "Cancelar",
-  'Image description': "Image description",
+  'Image description': "Descrição da imagem",
 });
