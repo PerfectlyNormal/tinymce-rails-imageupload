@@ -7,5 +7,5 @@ tinyMCE.addI18n('pt_PT', {
   "Didn't get a response from the server": "Não foi obtida uma resposta do servidor",
   'Insert': "Inserir",
   'Cancel': "Cancelar",
-  'Image description': "Image description",
+  'Image description': "Descrição da imagem",
 });
