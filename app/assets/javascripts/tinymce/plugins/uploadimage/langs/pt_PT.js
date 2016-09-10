@@ -1,4 +1,4 @@
-tinyMCE.addI18n('pt-PT', {
+tinyMCE.addI18n('pt_PT', {
   'Insert an image from your computer': 'Inserir uma imagem do seu computador',
   'Insert image': 'Inserir imagem',
   'Choose an image': "Escolher uma imagem",
