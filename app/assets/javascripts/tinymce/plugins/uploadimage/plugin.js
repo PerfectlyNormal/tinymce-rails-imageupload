@@ -12,7 +12,7 @@
       function showDialog() {
         win = editor.windowManager.open({
           title: ed.translate('Insert an image from your computer'),
-          width:  500 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
+          width:  520 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
           height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
           body: [
             {type: 'iframe',  url: 'javascript:void(0)'},
