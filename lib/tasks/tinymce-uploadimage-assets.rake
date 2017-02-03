@@ -14,7 +14,10 @@ Rake::Task[assets_task].enhance do
   # works. To preserve backward compatibility, we check the amount of
   # arguments it expects.
   if TinyMCE::Rails::AssetInstaller.instance_method(:initialize).arity == 3
-    TinyMCE::Rails::AssetInstaller.new(assets, target, manifest).install
+    installer = TinyMCE::Rails::AssetInstaller.new(assets, target, manifest)
+    installer.log_level = Logger::INFO
+    installer.strategy = config.tinymce.install
+    installer.install
   else
     TinyMCE::Rails::AssetInstaller::ASSETS = assets
     TinyMCE::Rails::AssetInstaller.new(target, manifest).install
