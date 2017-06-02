@@ -235,6 +235,7 @@
       // Add a button that opens a window
       editor.addButton('uploadimage', {
         tooltip: ed.translate('Insert an image from your computer'),
+        text: 'Upload an image',
         icon : 'image',
         onclick: showDialog
       });
