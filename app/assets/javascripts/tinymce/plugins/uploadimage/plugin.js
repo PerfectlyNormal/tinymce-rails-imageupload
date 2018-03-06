@@ -124,12 +124,17 @@
         if(throbber) {
           throbber.hide();
         }
-
-        var target = iframe.getEl();
-        if(target.document || target.contentDocument) {
-          var doc = target.contentDocument || target.contentWindow.document;
-          handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
-        } else {
+        try {
+          var target = iframe.getEl();
+          if(target.document || target.contentDocument) {
+            var doc = target.contentDocument || target.contentWindow.document;
+            if(String(doc.contentType).includes("html")) {
+              handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
+            } else {
+              handleResponse(doc.getElementsByTagName("pre")[0].innerHTML);
+            }
+          }
+        } catch(e) {
           handleError("Didn't get a response from the server");
         }
       }
