@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(version: 20140220155401) do
 
   create_table "images", force: true do |t|
-    t.string   "alt_text",          default: ""
+    t.string   "alt",               default: ""
     t.string   "hint",              default: ""
     t.string   "file_file_name"
     t.string   "file_content_type"
