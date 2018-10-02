@@ -7,22 +7,42 @@
           iframe,
           win,
           throbber,
+          selected_class = '',
           editor = ed;
 
       function showDialog() {
+        var body = [
+          {type: 'iframe',  url: 'javascript:void(0)'},
+          {type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file'},
+          {type: 'textbox', name: 'alt',  label: ed.translate('Image description')}
+        ];
+
+        if (getClassList().length > 0) {
+          body = body.concat([
+            {
+              type: 'listbox',
+              name: 'class',
+              label: ed.translate('Class'),
+              values: getClassList(),
+              onSelect: function(e) {
+                selected_class = this.value();
+              }
+            }
+          ]);
+        }
+
+        body = body.concat([
+          {type: 'container', classes: 'error', html: "<p style='color: #b94a48;'>&nbsp;</p>"},
+
+          // Trick TinyMCE to add a empty div that "preloads" the throbber image
+          {type: 'container', classes: 'throbber'}
+        ]);
+
         win = editor.windowManager.open({
           title: ed.translate('Insert an image from your computer'),
           width:  520 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
           height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
-          body: [
-            {type: 'iframe',  url: 'javascript:void(0)'},
-            {type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file'},
-            {type: 'textbox', name: 'alt',  label: ed.translate('Image description')},
-            {type: 'container', classes: 'error', html: "<p style='color: #b94a48;'>&nbsp;</p>"},
-
-            // Trick TinyMCE to add a empty div that "preloads" the throbber image
-            {type: 'container', classes: 'throbber'},
-          ],
+          body: body,
           buttons: [
             {
               text: ed.translate('Insert'),
@@ -59,7 +79,7 @@
         // Create some needed hidden inputs
         form.appendChild(createElement('input', {type: "hidden", name: "utf8", value: "✓"}));
         form.appendChild(createElement('input', {type: 'hidden', name: 'authenticity_token', value: getMetaContents('csrf-token')}));
-        form.appendChild(createElement('input', {type: 'hidden', name: 'hint', value: ed.getParam("uploadimage_hint", "")}));
+        form.appendChild(createElement('input', {type: 'hidden', name: hintName(), value: hintValue()}));
 
         var el = win.getEl();
         var body = document.getElementById(el.id + "-body");
@@ -77,7 +97,7 @@
 
           if(ctrl.tagName.toLowerCase() == 'input' && ctrl.type != "hidden") {
             if(ctrl.type == "file") {
-              ctrl.name = "file";
+              ctrl.name = inputName('file');
 
               // Hack styles
               tinymce.DOM.setStyles(ctrl, {
@@ -86,7 +106,7 @@
                 'webkitBoxShadow': 'none',
               });
             } else {
-              ctrl.name = "alt";
+              ctrl.name = inputName('alt');
             }
           }
         }
@@ -94,8 +114,24 @@
         body.appendChild(form);
       }
 
+      function hintName() {
+        return inputName(ed.getParam('uploadimage_hint_key', 'hint'));
+      }
+
+      function hintValue() {
+        return ed.getParam('uploadimage_hint', '');
+      }
+
+      function inputName(name) {
+        if (ed.getParam('uploadimage_model', false)) {
+          return ed.getParam('uploadimage_model') + '[' + name + ']';
+        } else {
+          return name;
+        }
+      }
+
       function insertImage() {
-        if(getInputValue("file") == "") {
+        if(getInputValue(inputName('file')) == "") {
           return handleError('You must choose a file');
         }
 
@@ -180,19 +216,20 @@
       }
 
       function buildHTML(json) {
+        var image = json[ed.getParam('uploadimage_model', 'image')];
         var default_class = ed.getParam("uploadimage_default_img_class", "");
         var figure = ed.getParam("uploadimage_figure", false);
-        var alt_text = getInputValue("alt");
+        var alt_text = getInputValue(inputName('alt'));
 
-        var imgstr = "<img src='" + json["image"]["url"] + "'";
+        var imgstr = "<img src='" + image["url"] + "'";
 
         if(default_class != "")
-          imgstr += " class='" + default_class + "'";
+          imgstr += " class='" + default_class + ' ' + selected_class + "'";
 
-        if(json["image"]["height"])
-          imgstr += " height='" + json["image"]["height"] + "'";
-        if(json["image"]["width"])
-          imgstr += " width='"  + json["image"]["width"]  + "'";
+        if(image["height"])
+          imgstr += " height='" + image["height"] + "'";
+        if(image["width"])
+          imgstr += " width='"  + image["width"]  + "'";
 
         imgstr += " alt='" + alt_text + "'/>";
 
@@ -236,6 +273,18 @@
 
         return null;
       }
+
+      function getClassList() {
+        var config =  ed.getParam('image_class_list', []);
+        var values = [];
+        for (var i = 0; i < config.length; i++) {
+          values[i] = {
+            text: config[i]['title'],
+            value: config[i]['value']
+          };
+        }
+        return values;
+      };
 
       // Add a button that opens a window
       editor.addButton('uploadimage', {
