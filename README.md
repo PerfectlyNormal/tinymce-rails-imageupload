@@ -41,6 +41,20 @@ A small demo app demonstrating a working setup for Rails 3.2 ([demo](http://murm
 
 and the rest should happen automatically.
 
+You can also globally have imageupload globally disabled but enabled on specific instances.
+
+~~~yml
+# tinymce.yml
+toolbar: bold italic underline | uploadimage
+plugins:
+  - uploadimage
+uploadimage: false
+~~~
+
+~~~erb
+<%= tinymce uploadimage: true %>
+~~~
+
 ### Set up upload URL and handler
 
 The plugin defaults to POSTing to `/tinymce_assets`. You may modify it by
@@ -86,7 +100,7 @@ Per request `hint` data can be sent to the `create` action through the call to `
 
 Example:
 
-~~~ruby
+~~~erb
 <%= tinymce uploadimage_hint_key: 'post_id', uploadimage_hint: @post.id %>
 ~~~
 
@@ -108,7 +122,7 @@ Params can be sent in a more standard attributes format by setting `uploadimage_
 
 Example:
 
-~~~ruby
+~~~erb
 <%= tinymce uploadimage_model: 'post' %>
 ~~~
 
@@ -137,6 +151,7 @@ Otherwise the inserted HTML is just `<img src="...">`.
 You can set `image_class_list` to an array of `title`, `value` objects to provide uploaders a pre-defined list of CSS classes to apply.
 
 ~~~yml
+# tinymce.yml
 image_class_list:
   - title: 'Center'
     value: 'img-center'

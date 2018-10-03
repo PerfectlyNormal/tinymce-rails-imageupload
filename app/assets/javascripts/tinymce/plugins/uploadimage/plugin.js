@@ -286,20 +286,22 @@
         return values;
       };
 
-      // Add a button that opens a window
-      editor.addButton('uploadimage', {
-        tooltip: ed.translate('Insert an image from your computer'),
-        icon : 'image',
-        onclick: showDialog
-      });
+      if (editor.getParam('uploadimage', true)) {
+        // Add a button that opens a window
+        editor.addButton('uploadimage', {
+          tooltip: ed.translate('Insert an image from your computer'),
+          icon : 'image',
+          onclick: showDialog
+        });
 
-      // Adds a menu item to the tools menu
-      editor.addMenuItem('uploadimage', {
-        text: ed.translate('Insert an image from your computer'),
-        icon : 'image',
-        context: 'insert',
-        onclick: showDialog
-      });
+        // Adds a menu item to the tools menu
+        editor.addMenuItem('uploadimage', {
+          text: ed.translate('Insert an image from your computer'),
+          icon : 'image',
+          context: 'insert',
+          onclick: showDialog
+        });
+      }
     }
   });
 
