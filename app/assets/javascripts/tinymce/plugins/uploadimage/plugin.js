@@ -166,7 +166,7 @@
           var target = iframe.getEl();
           if(target.document || target.contentDocument) {
             var doc = target.contentDocument || target.contentWindow.document;
-            if(String(doc.contentType).includes("html")) {
+            if(String(doc.contentType).indexOf("html") > -1) {
               handleResponse(doc.getElementsByTagName("body")[0].innerHTML);
             } else {
               handleResponse(doc.getElementsByTagName("pre")[0].innerHTML);
