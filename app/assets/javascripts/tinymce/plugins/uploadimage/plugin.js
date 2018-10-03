@@ -11,19 +11,21 @@
           editor = ed;
 
       function showDialog() {
+        var classList = getClassList();
         var body = [
           {type: 'iframe',  url: 'javascript:void(0)'},
           {type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file'},
           {type: 'textbox', name: 'alt',  label: ed.translate('Image description')}
         ];
 
-        if (getClassList().length > 0) {
+        if (classList.length > 0) {
+          selected_class = classList[0].value;
           body = body.concat([
             {
               type: 'listbox',
               name: 'class',
               label: ed.translate('Class'),
-              values: getClassList(),
+              values: classList,
               onSelect: function(e) {
                 selected_class = this.value();
               }
