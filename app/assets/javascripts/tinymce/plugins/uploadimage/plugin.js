@@ -60,10 +60,6 @@
           plugin_url: url
         });
 
-        // TinyMCE likes pointless submit handlers
-        win.off('submit');
-        win.on('submit', insertImage);
-
         /* WHY DO YOU HATE <form>, TINYMCE!? */
         iframe = win.find("iframe")[0];
         form = createElement('form', {
