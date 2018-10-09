@@ -29,9 +29,9 @@ A small demo app demonstrating a working setup for Rails 3.2 ([demo](http://murm
 ### Add the gem to your Gemfile
 
     gem 'tinymce-rails-imageupload', '~> 4.0.0.beta'
-    
+
     # or use git
-    
+
     gem 'tinymce-rails-imageupload', github: 'PerfectlyNormal/tinymce-rails-imageupload'
 
 ### Set up TinyMCE as you would normally, but in the call to `.tinymce()`, add
@@ -40,6 +40,20 @@ A small demo app demonstrating a working setup for Rails 3.2 ([demo](http://murm
     # toolbar option must include "uploadimage" somewhere to have the button appear
 
 and the rest should happen automatically.
+
+You can also globally have imageupload globally disabled but enabled on specific instances.
+
+~~~yml
+# tinymce.yml
+toolbar: bold italic underline | uploadimage
+plugins:
+  - uploadimage
+uploadimage: false
+~~~
+
+~~~erb
+<%= tinymce uploadimage: true %>
+~~~
 
 ### Set up upload URL and handler
 
@@ -50,10 +64,6 @@ Routing to your controller must be done manually.
 Set it up using something similar in `routes.rb`:
 
     post '/tinymce_assets' => 'tinymce_assets#create'
-
-The plugin will relay option `uploadimage_hint` in the call to `.tinymce()`
-to the POSTed URL as param `hint`. You may use this to relay any hints
-you wish (for example, blog post ID #) to the controller.
 
 This action gets called with a file parameter creatively called `file`,
 and must respond with JSON, containing the URL to the image.
@@ -76,9 +86,56 @@ Example:
       end
     end
 
+
 If the JSON response contains a `width` and/or `height` key,
 those will be used in the inserted HTML (`<img src="..." width="..." height="...">`),
 but if those are not present, the inserted HTML is just `<img src="...">`.
+
+### Hint param
+
+Per request `hint` data can be sent to the `create` action through the call to `.tinymce()` or `tinymce.yml`. You may use this to relay any hints you wish (for example, blog post ID #) to the controller.
+
+- `uploadimage_hint_key` - override the hint key. Default is `hint`.
+- `uploadimage_hint` - hint value.
+
+Example:
+
+~~~erb
+<%= tinymce uploadimage_hint_key: 'post_id', uploadimage_hint: @post.id %>
+~~~
+
+Would result in a `params` object that looks like this:
+
+~~~ruby
+{
+  "post_id": 1,
+  "file": ...,
+  // ...
+}
+~~~
+
+### Model attributes
+
+Params can be sent in a more standard attributes format by setting `uploadimage_model`.
+
+- `uploadimage_model` - nest attributes within model namespace.
+
+Example:
+
+~~~erb
+<%= tinymce uploadimage_model: 'post' %>
+~~~
+
+Would result in a `params` object that looks like this:
+
+~~~ruby
+{
+  "post": {
+    "file": ...,
+    // ...
+  },
+}
+~~~
 
 ### Default class for img tag
 
@@ -86,8 +143,23 @@ By default the plugin doesn't assign any class to the img tag.
 You can set the class(es) by supplying the `uploadimage_default_img_class`
 option in the call to `.tinymce()`.
 
-`class="..."` will only be added to the img tag if a default is specified.
+`class="..."` will only be added to the img tag if a default or custom class is specified.
 Otherwise the inserted HTML is just `<img src="...">`.
+
+### Custom classes
+
+You can set `image_class_list` to an array of `title`, `value` objects to provide uploaders a pre-defined list of CSS classes to apply.
+
+~~~yml
+# tinymce.yml
+image_class_list:
+  - title: 'Center'
+    value: 'img-center'
+  - title: 'Left thumbnail'
+    value: 'img-left img-thumbnail'
+  - title: 'Right thumbnail'
+    value: 'img-right img-thumbnail'
+~~~
 
 ## Asset Pipeline
 
