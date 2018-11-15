@@ -7,7 +7,7 @@
         iframe,
         win,
         throbber,
-        selected_class = '',
+        selectedClass = '',
         editor = ed;
 
       function showDialog() {
@@ -19,7 +19,7 @@
         ];
 
         if (classList.length > 0) {
-          selected_class = classList[0].value;
+          selectedClass = classList[0].value;
           body = body.concat([
             {
               type: 'listbox',
@@ -27,7 +27,7 @@
               label: ed.translate('Class'),
               values: classList,
               onSelect: function(e) {
-                selected_class = this.value();
+                selectedClass = this.value();
               }
             }
           ]);
@@ -222,14 +222,14 @@
 
       function buildHTML(json) {
         var image = json[ed.getParam('uploadimage_model', 'image')];
-        var default_class = ed.getParam('uploadimage_default_img_class', '');
+        var defaultClass = ed.getParam('uploadimage_default_img_class', '');
         var figure = ed.getParam('uploadimage_figure', false);
-        var alt_text = getInputValue(inputName('alt'));
+        var altText = getInputValue(inputName('alt'));
 
         var imgstr = "<img src='" + image['url'] + "'";
 
-        if (default_class != '') {
-          imgstr += " class='" + default_class + ' ' + selected_class + "'";
+        if (defaultClass != '') {
+          imgstr += " class='" + defaultClass + ' ' + selectedClass + "'";
         }
 
         if (image['height']) {
@@ -239,7 +239,7 @@
           imgstr += " width='" + image['width'] + "'";
         }
 
-        imgstr += " alt='" + alt_text + "'/>";
+        imgstr += " alt='" + altText + "'/>";
 
         if (figure) {
           var figureClass = ed.getParam('uploadimage_figure_class', 'figure');
@@ -255,7 +255,7 @@
           if (figcaptionClass != '') {
             figstr += " class='" + figcaptionClass + "'";
           }
-          figstr += '>' + alt_text + '</figcaption>';
+          figstr += '>' + altText + '</figcaption>';
           figstr += '</figure>';
 
           return figstr;
