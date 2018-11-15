@@ -98,8 +98,8 @@
         for (var i = 0; i < inputs.length; i++) {
           var ctrl = inputs[i];
 
-          if (ctrl.tagName.toLowerCase() == 'input' && ctrl.type != 'hidden') {
-            if (ctrl.type == 'file') {
+          if (ctrl.tagName.toLowerCase() === 'input' && ctrl.type !== 'hidden') {
+            if (ctrl.type === 'file') {
               ctrl.name = inputName('file');
 
               // Hack styles
@@ -134,7 +134,7 @@
       }
 
       function insertImage() {
-        if (getInputValue(inputName('file')) == '') {
+        if (getInputValue(inputName('file')) === '') {
           return handleError('You must choose a file');
         }
 
@@ -228,7 +228,7 @@
 
         var imgstr = "<img src='" + image['url'] + "'";
 
-        if (defaultClass != '') {
+        if (defaultClass !== '') {
           imgstr += " class='" + defaultClass + ' ' + selectedClass + "'";
         }
 
@@ -252,7 +252,7 @@
           }
           figstr += '>' + imgstr;
           figstr += '<figcaption';
-          if (figcaptionClass != '') {
+          if (figcaptionClass !== '') {
             figstr += " class='" + figcaptionClass + "'";
           }
           figstr += '>' + altText + '</figcaption>';
@@ -268,7 +268,7 @@
         var inputs = form.getElementsByTagName('input');
 
         for (var i in inputs) {
-          if (inputs[i].name == name) {
+          if (inputs[i].name === name) {
             return inputs[i].value;
           }
         }
@@ -280,7 +280,7 @@
         var m = document.getElementsByTagName('meta');
 
         for (var i in m) {
-          if (m[i].name == mn) {
+          if (m[i].name === mn) {
             return m[i].content;
           }
         }
