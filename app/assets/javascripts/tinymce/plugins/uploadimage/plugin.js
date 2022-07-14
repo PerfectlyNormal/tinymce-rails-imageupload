@@ -3,6 +3,7 @@
 
   tinymce.create('tinymce.plugins.UploadImage', {
     UploadImage: function(ed, url) {
+      var PLUGIN_CLASS = 'mce-plugins-uploadimage';
       var form,
         iframe,
         win,
@@ -11,11 +12,30 @@
         editor = ed;
 
       function showDialog() {
+        var node = ed.selection.getNode();
+
+        if (node && node.tagName === 'IMG') {
+          showUpdateDialog();
+        } else {
+          showInsertDialog();
+        }
+      }
+
+      function showInsertDialog() {
         var classList = getClassList();
         var body = [
           { type: 'iframe', url: 'javascript:void(0)' },
-          { type: 'textbox', name: 'file', label: ed.translate('Choose an image'), subtype: 'file' },
-          { type: 'textbox', name: 'alt', label: ed.translate('Image description') }
+          {
+            type: 'textbox',
+            name: 'file',
+            label: ed.translate('Choose an image'),
+            subtype: 'file'
+          },
+          {
+            type: 'textbox',
+            name: 'alt',
+            label: ed.translate('Image description')
+          }
         ];
 
         if (classList.length > 0) {
@@ -34,7 +54,11 @@
         }
 
         body = body.concat([
-          { type: 'container', classes: 'error', html: "<p style='color: #b94a48;'>&nbsp;</p>" },
+          {
+            type: 'container',
+            classes: 'error',
+            html: "<p style='color: #b94a48;'>&nbsp;</p>"
+          },
 
           // Trick TinyMCE to add a empty div that "preloads" the throbber image
           { type: 'container', classes: 'throbber' }
@@ -80,9 +104,19 @@
         // Create some needed hidden inputs
         form.appendChild(createElement('input', { type: 'hidden', name: 'utf8', value: '✓' }));
         form.appendChild(
-          createElement('input', { type: 'hidden', name: 'authenticity_token', value: getMetaContents('csrf-token') })
+          createElement('input', {
+            type: 'hidden',
+            name: 'authenticity_token',
+            value: getMetaContents('csrf-token')
+          })
         );
-        form.appendChild(createElement('input', { type: 'hidden', name: hintName(), value: hintValue() }));
+        form.appendChild(
+          createElement('input', {
+            type: 'hidden',
+            name: hintName(),
+            value: hintValue()
+          })
+        );
 
         var el = win.getEl();
         var body = document.getElementById(el.id + '-body');
@@ -117,6 +151,64 @@
         body.appendChild(form);
       }
 
+      function showUpdateDialog() {
+        var node = ed.selection.getNode();
+        var classList = getClassList();
+        var body = [
+          {
+            type: 'textbox',
+            name: 'alt',
+            value: node.getAttribute('alt'),
+            label: ed.translate('Image description')
+          }
+        ];
+
+        if (classList.length > 0) {
+          for (var i = 0; i < classList.length; i++) {
+            if (node.className.indexOf(classList[i].value) > 0) {
+              selectedClass = classList[i];
+            }
+          }
+
+          selectedClass = selectedClass || classList[0].value;
+          body = body.concat([
+            {
+              type: 'listbox',
+              name: 'class',
+              label: ed.translate('Class'),
+              value: selectedClass.value,
+              values: classList,
+              onSelect: function(e) {
+                selectedClass = this.value();
+              }
+            }
+          ]);
+        }
+
+        win = editor.windowManager.open(
+          {
+            title: ed.translate('Update image'),
+            width: 520 + parseInt(editor.getLang('uploadimage.delta_width', 0), 10),
+            height: 180 + parseInt(editor.getLang('uploadimage.delta_height', 0), 10),
+            body: body,
+            buttons: [
+              {
+                text: ed.translate('Update'),
+                onclick: updateImage,
+                subtype: 'primary'
+              },
+              {
+                text: ed.translate('Cancel'),
+                onclick: ed.windowManager.close
+              }
+            ]
+          },
+          {
+            plugin_url: url
+          }
+        );
+      }
+
       function hintName() {
         return inputName(ed.getParam('uploadimage_hint_key', 'hint'));
       }
@@ -130,6 +222,14 @@
           return ed.getParam('uploadimage_model') + '[' + name + ']';
         } else {
           return name;
+        }
+      }
+
+      function windowData() {
+        if (ed.windowManager.windows[0]) {
+          return ed.windowManager.windows[0].toJSON();
+        } else {
+          return {};
         }
       }
 
@@ -157,6 +257,15 @@
         }
 
         form.submit();
+      }
+
+      function updateImage(e) {
+        var node = ed.selection.getNode();
+        var data = windowData();
+
+        node.setAttribute('class', defaultClass() + ' ' + data.class);
+        node.setAttribute('alt', data.alt);
+        win.close();
       }
 
       function uploadDone() {
@@ -222,14 +331,13 @@
 
       function buildHTML(json) {
         var image = json[ed.getParam('uploadimage_model', 'image')];
-        var defaultClass = ed.getParam('uploadimage_default_img_class', '');
         var figure = ed.getParam('uploadimage_figure', false);
         var altText = getInputValue(inputName('alt'));
 
         var imgstr = "<img src='" + image['url'] + "'";
 
-        if (defaultClass !== '') {
-          imgstr += " class='" + defaultClass + ' ' + selectedClass + "'";
+        if (defaultClass() !== '') {
+          imgstr += " class='" + defaultClass() + ' ' + selectedClass + "'";
         }
 
         if (image['height']) {
@@ -288,6 +396,10 @@
         return null;
       }
 
+      function defaultClass() {
+        return ed.getParam('uploadimage_default_img_class', '') + ' ' + PLUGIN_CLASS;
+      }
+
       function getClassList() {
         var config = ed.getParam('image_class_list', []);
         var values = [];
@@ -303,14 +415,15 @@
       if (editor.getParam('uploadimage', true)) {
         // Add a button that opens a window
         editor.addButton('uploadimage', {
-          tooltip: ed.translate('Insert an image from your computer'),
+          tooltip: ed.translate('Insert/update an image'),
           icon: 'image',
-          onclick: showDialog
+          onclick: showDialog,
+          stateSelector: '.' + PLUGIN_CLASS
         });
 
         // Adds a menu item to the tools menu
         editor.addMenuItem('uploadimage', {
-          text: ed.translate('Insert an image from your computer'),
+          text: ed.translate('Insert/update an image'),
           icon: 'image',
           context: 'insert',
           onclick: showDialog
