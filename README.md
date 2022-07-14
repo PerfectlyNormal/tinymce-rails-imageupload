@@ -1,7 +1,10 @@
 # IMPORTANT NOTE:
-This version is being rewritten to work with TinyMCE 4.x, and is
+This repository is no longer maintained, as I do not use TinyMCE for anything any more.
+I also understand that TinyMCE 4 is quite old. Luckily, [Frank Groeneveld](https://frankgroeneveld.nl) has written [a blog post detailing how to get image uploads working with TinyMCE 6 and Rails](https://frankgroeneveld.nl/2022/07/14/replace-tinymce-rails-imageupload/) that I recommend checking out.
+
+~~This version is being rewritten to work with TinyMCE 4.x, and is
 currently not very tested. Use at your own risk, feedback welcome. For the stable version targetting TinyMCE 3, see
-the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3)
+the [tinymce3 branch](https://github.com/PerfectlyNormal/tinymce-rails-imageupload/tree/tinymce3)~~
 
 # tinymce-rails-imageupload
 
